@@ -5,11 +5,33 @@
  */
 package prograpoo1;
 
+import java.util.ArrayList;
 /**
  *
  * @author Javith
  */
 public class UnidadTrasportes {
-    private 
+    private ArrayList<Vehiculo> listaVehiculos;
+    private ArrayList<Chofer> listaChoferes;
+    private int usuario;
+
+    public UnidadTrasportes(ArrayList<Vehiculo> listaVehiculos, ArrayList<Chofer> listaChoferes, int usuario) {
+        this.listaVehiculos = listaVehiculos;
+        this.listaChoferes = listaChoferes;
+        this.usuario = usuario;
+    }
+    
+    
+    public ArrayList<Vehiculo> getListaVehiculos() {
+        return listaVehiculos;
+    }
+
+    public ArrayList<Chofer> getListaChoferes() {
+        return listaChoferes;
+    }
+
+    public int getUsuario() {
+        return usuario;
+    }
     
 }
