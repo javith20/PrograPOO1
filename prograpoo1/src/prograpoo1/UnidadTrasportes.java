@@ -5,6 +5,7 @@
  */
 package prograpoo1;
 
+import java.awt.Choice;
 import java.util.ArrayList;
 /**
  *
@@ -13,15 +14,15 @@ import java.util.ArrayList;
 public class UnidadTrasportes {
     private ArrayList<Vehiculo> listaVehiculos;
     private ArrayList<Chofer> listaChoferes;
-    private int usuario;
+    private final int usuario;
 
-    public UnidadTrasportes(ArrayList<Vehiculo> listaVehiculos, ArrayList<Chofer> listaChoferes, int usuario) {
-        this.listaVehiculos = listaVehiculos;
-        this.listaChoferes = listaChoferes;
+    public UnidadTrasportes(int usuario) {
         this.usuario = usuario;
+        listaVehiculos = new ArrayList<>();
+        listaChoferes = new ArrayList<>();
     }
-    
-    
+
+        
     public ArrayList<Vehiculo> getListaVehiculos() {
         return listaVehiculos;
     }
@@ -32,6 +33,12 @@ public class UnidadTrasportes {
 
     public int getUsuario() {
         return usuario;
+    }
+    public void AgregarVehiculo(Vehiculo vehiculo){
+        this.listaVehiculos.add(vehiculo);
+    }
+    public void AgregarChofer(Chofer chofer){
+        this.listaVehiculos.add(chofer);
     }
     
 }

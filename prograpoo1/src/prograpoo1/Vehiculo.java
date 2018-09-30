@@ -13,15 +13,28 @@ import java.util.ArrayList;
  */
 public class Vehiculo {
     private String placa;
-    private int agnoFabricacion;
     private String color;
     private String marca;
+    private int agnoFabricacion;
     private int capacidad;
     private double kilometraje;
     private String vin;
     private String sede;
     private int estado;
     private ArrayList<Mantenimiento> historialMantenimiento;
+    
+    public Vehiculo(String placa, int agnoFabricacion, String color, String marca, int capacidad, double kilometraje, String vin, String sede, int estado) {
+        this.placa = placa;
+        this.agnoFabricacion = agnoFabricacion;
+        this.color = color;
+        this.marca = marca;
+        this.capacidad = capacidad;
+        this.kilometraje = kilometraje;
+        this.vin = vin;
+        this.sede = sede;
+        this.estado = estado;
+    }
+   
 
     public String getPlaca() {
         return placa;

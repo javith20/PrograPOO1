@@ -9,6 +9,15 @@ public class Chofer{
   private String correo;
   private int telefono;
 
+    public Chofer(int cedula, String nombre, ArrayList<Licencia> listaLicencias, String correo, int telefono) {
+        this.cedula = cedula;
+        this.nombre = nombre;
+        this.listaLicencias = listaLicencias;
+        this.correo = correo;
+        this.telefono = telefono;
+    }
+
+    
     public int getCedula() {
         return cedula;
     }
