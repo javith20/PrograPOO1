@@ -12,9 +12,11 @@ import java.util.Date;
  * @author Javith
  */
 public class Licencia {
+
     private final int numero;
     private final int tipo;
     private final Date fechaEmision;
+    private final Date fechaExpiracion;
 
     public int getNumero() {
         return numero;
@@ -31,7 +33,6 @@ public class Licencia {
     public Date getFechaExpiracion() {
         return fechaExpiracion;
     }
-    private final Date fechaExpiracion;
 
     public Licencia(int numero, int tipo, Date fechaEmision, Date fechaExpiracion) {
         this.numero = numero;
@@ -39,5 +40,5 @@ public class Licencia {
         this.fechaEmision = fechaEmision;
         this.fechaExpiracion = fechaExpiracion;
     }
-    
+
 }

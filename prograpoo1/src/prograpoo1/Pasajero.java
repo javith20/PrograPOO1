@@ -14,6 +14,7 @@ public class Pasajero {
     private final int cedula;
     private final Direccion direccion;
     private final String correo;
+    private final int telefono;
     
     public Pasajero(String nombre, int cedula, Direccion direccion, String correo, int telefono) {
         this.nombre = nombre;
@@ -42,5 +43,5 @@ public class Pasajero {
     public int getTelefono() {
         return telefono;
     }
-    private final int telefono;
+    
 }

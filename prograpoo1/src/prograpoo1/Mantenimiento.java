@@ -1,3 +1,5 @@
+package prograpoo1;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -83,16 +85,17 @@ public class Mantenimiento {
         Mantenimiento.cantMantenimiento = cantMantenimiento;
     }
 
-    public Mantenimiento(String idServicio, double montoPagado, String detalle, int tipoServicio, Empresa empresa) {
+    public Mantenimiento( double montoPagado, String detalle, int tipoServicio, Empresa empresa) {
         Calendar calendario;
         calendario = Calendar.getInstance();
         
-        this.idServicio = idServicio;
+        this.idServicio ="ID-SM-"+cantMantenimiento;
         this.fechaInicio = calendario.getTime();
         this.montoPagado = montoPagado;
         this.detalle = detalle;
         this.tipoServicio = tipoServicio;
         this.empresa = empresa;
+        cantMantenimiento++;
     }
     
     

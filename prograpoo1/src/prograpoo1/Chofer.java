@@ -1,3 +1,5 @@
+package prograpoo1;
+
 
 import java.util.ArrayList;
 import prograpoo1.Licencia;
@@ -38,8 +40,8 @@ public class Chofer{
         return listaLicencias;
     }
 
-    public void setListaLicencias(ArrayList<Licencia> listaLicencias) {
-        this.listaLicencias = listaLicencias;
+    public void agregarLicencia(Licencia licencia) {
+        this.listaLicencias.add(licencia);
     }
 
     public String getCorreo() {

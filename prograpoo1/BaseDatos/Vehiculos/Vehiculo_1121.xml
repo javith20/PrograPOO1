@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xml>
+   <Vehiculo>
+      <Placa>1121</Placa>
+      <Color>32</Color>
+      <Marca>BMD</Marca>
+      <AgnoFabricacion>3213</AgnoFabricacion>
+      <Capacidad>534</Capacidad>
+      <Kilometraje>32432.0</Kilometraje>
+      <Vin>ewqe</Vin>
+      <Sede>San p</Sede>
+      <Estado>23</Estado>
+   </Vehiculo>
+</xml>
+

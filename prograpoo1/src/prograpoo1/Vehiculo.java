@@ -33,6 +33,7 @@ public class Vehiculo {
         this.vin = vin;
         this.sede = sede;
         this.estado = estado;
+        this.historialMantenimiento = new ArrayList<>();
     }
    
 
