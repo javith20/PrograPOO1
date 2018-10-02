@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package prograpoo1;
+package Interfaz;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -31,7 +31,7 @@ public final class Interfaz extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) listaVehiculos.getModel() ;
         Object [] fila = new Object[5]; 
         for(int indice=0; indice<10;indice++){
-            fila[0] = "a";
+            fila[0] = String.valueOf(indice);
             fila[1] = "c";
             fila[2] = "b";
             fila[3] = "y";
