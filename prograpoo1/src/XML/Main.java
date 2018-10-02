@@ -20,7 +20,9 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       GestorXML x =new  GestorXML(p);
+       Direccion d = new Direccion("San Jose", "Turrubares", "San Luis", "gsad");
+       GestorXML x =new  GestorXML(d);
+       System.out.println(x.getTitulo());
        x.guardaConFormato();
     }
     
