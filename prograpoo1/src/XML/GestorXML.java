@@ -10,6 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -19,6 +20,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import jdk.nashorn.internal.runtime.arrays.ArrayLikeIterator;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
@@ -44,6 +46,7 @@ public class GestorXML {
     private Document document = null;
     private DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
     private String ruta;
+    private ArrayList<String> lista =new ArrayList<>();
     
     public GestorXML(String r)
     {
@@ -55,7 +58,7 @@ public class GestorXML {
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
             DOMImplementation implementation = builder.getDOMImplementation();
-            document = implementation.createDocument(null, "xml", null);
+            document = implementation.createDocument(null, "Vehiculo", null);
 
             //Creación de elementos
             //creamos el elemento principal casa
@@ -119,7 +122,7 @@ public class GestorXML {
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
             DOMImplementation implementation = builder.getDOMImplementation();
-            document = implementation.createDocument(null, "xml", null);
+            document = implementation.createDocument(null, "Pasajero", null);
 
             //Creación de elementos
             //creamos el elemento principal casa
@@ -163,11 +166,11 @@ public class GestorXML {
     }
 
     public GestorXML(Chofer chofer) {
-        this.ruta = "BaseDatos//Pasajeros//Pasajero_" + String.valueOf(chofer.getCedula()) + ".xml";
+        this.ruta = "BaseDatos//Choferes//Chofer_" + String.valueOf(chofer.getCedula()) + ".xml";
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
             DOMImplementation implementation = builder.getDOMImplementation();
-            document = implementation.createDocument(null, "xml", null);
+            document = implementation.createDocument(null, "Chofer", null);
 
             //Creación de elementos
             //creamos el elemento principal casa
@@ -265,7 +268,7 @@ public class GestorXML {
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
             DOMImplementation implementation = builder.getDOMImplementation();
-            document = implementation.createDocument(null, "Direccion", null);
+            document = implementation.createDocument(null, "xml", null);
 
             //Creación de elementos
             //creamos el elemento principal casa
@@ -358,11 +361,11 @@ public class GestorXML {
     }
 
     public GestorXML(Empresa empresa) {
-        this.ruta = "BaseDatos//Mantenimieto//mantenimiento_" + String.valueOf(empresa.getNumCedulaJuridica()) + ".xml";
+        this.ruta = "BaseDatos//Empresa//Empresa_" + String.valueOf(empresa.getNumCedulaJuridica()) + ".xml";
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
             DOMImplementation implementation = builder.getDOMImplementation();
-            document = implementation.createDocument(null, "xml", null);
+            document = implementation.createDocument(null, "Empresa", null);
 
             //Creación de elementos
             //creamos el elemento principal casa
@@ -439,22 +442,20 @@ public class GestorXML {
         try {
             DocumentBuilderFactory fábricaCreadorDocumento = DocumentBuilderFactory.newInstance();
             DocumentBuilder creadorDocumento = fábricaCreadorDocumento.newDocumentBuilder();
-            Document documento = creadorDocumento.parse(this.ruta);
+            Document documento = creadorDocumento.parse(ruta);
             //Obtener el elemento raíz del documento
-            documento.
+            
             Element raiz = documento.getDocumentElement();
 
             //Obtener la lista de nodos que tienen etiqueta "EMPLEADO"
-            NodeList listaEmpleados = raiz.getElementsByTagName("EMPLEADO");
+            NodeList listaAtributos = raiz.getElementsByTagName(raiz.getTagName());
             //Recorrer la lista de empleados
-            for (int i = 0; i < listaEmpleados.getLength(); i++) {
+            for (int i = 0; i < listaAtributos.getLength(); i++) {
                 //Obtener de la lista un empleado tras otro
-                Node empleado = listaEmpleados.item(i);
-                System.out.println("Empleado " + i);
-                System.out.println("==========");
+                Node objeto = listaAtributos.item(i);
 
                 //Obtener la lista de los datos que contiene ese empleado
-                NodeList datosEmpleado = empleado.getChildNodes();
+                NodeList datosEmpleado = objeto.getChildNodes();
                 //Recorrer la lista de los datos que contiene el empleado
                 for (int j = 0; j < datosEmpleado.getLength(); j++) {
                     //Obtener de la lista de datos un dato tras otro
@@ -468,7 +469,7 @@ public class GestorXML {
                         Node datoContenido = dato.getFirstChild();
                         //Mostrar el valor contenido en el nodo que debe ser de tipo Text
                         if (datoContenido != null && datoContenido.getNodeType() == Node.TEXT_NODE) {
-                            System.out.println(datoContenido.getNodeValue());
+                            lista.add(datoContenido.getNodeValue());
                         }
                     }
                 }
@@ -488,10 +489,14 @@ public class GestorXML {
         }
     }
 
+    public ArrayList<String> getLista() {
+        return lista;
+    }
+
     public String getTitulo() {
         Element raiz = document.getDocumentElement();
-        NodeList listaEmpleados = raiz.getElementsByTagName("ID");
+       
 
-        return document.getf;
+        return "2";
     }
 }

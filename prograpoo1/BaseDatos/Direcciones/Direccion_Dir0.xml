@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Direccion>
+<xml>
    <Direccion>
       <ID>Dir0</ID>
       <Provincia>San Jose</Provincia>
-      <Canton>Turrubares</Canton>
-      <Distrito>San Luisgsad</Distrito>
+      <Canton>Turru</Canton>
+      <Distrito>San Luissas</Distrito>
       <Segnas/>
    </Direccion>
-</Direccion>
+</xml>
 
