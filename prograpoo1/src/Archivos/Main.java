@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package XML;
+package Archivos;
 
 import org.xml.sax.SAXException;
 import prograpoo1.Direccion;
@@ -23,15 +23,16 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws SAXException {
-        Direccion a =new Direccion("San Jose", "Turru", "San Luis", "sas");
-        Empresa n = new Empresa("1212", 12321, 8754,a );
-       GestorXML x =new  GestorXML(n);
+        Direccion a = new Direccion("San Jose", "Turru", "San Luis", "sas");
+        Empresa n = new Empresa("1212", 12321, 8754, a);
         
-       x.guardaConFormato();
-       //x.CargarXML("BaseDatos\\Empresas\\Empresa_12321.xml");
+        LectorXML x = new LectorXML("BaseDatos//Vehiculos//Vehiculo_1121.xml","Vehiculo");
+        
+         System.err.printf(x.getListaElementos().get(1));
+        //x.CargarXML("BaseDatos\\Empresas\\Empresa_12321.xml");
         //System.out.println(x.getLista().get(0));  
 ///System.out.println((x.getTitulo()))
-               
+        
     }
     
 }

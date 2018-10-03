@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package XML;
+package Archivos;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -46,19 +46,14 @@ public class GestorXML {
     private Document document = null;
     private DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
     private String ruta;
-    private ArrayList<String> lista =new ArrayList<>();
-    
-    public GestorXML(String r)
-    {
-        this.ruta=r;
-    }
-    
+
+
     public GestorXML(Vehiculo vehiculo) {
         this.ruta = "BaseDatos//Vehiculos//Vehiculo_" + vehiculo.getPlaca() + ".xml";
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
             DOMImplementation implementation = builder.getDOMImplementation();
-            document = implementation.createDocument(null, "Vehiculo", null);
+            document = implementation.createDocument(null, "xml", null);
 
             //Creación de elementos
             //creamos el elemento principal casa
@@ -110,7 +105,7 @@ public class GestorXML {
             atributo6.appendChild(valoAtributo6);
             atributo7.appendChild(valoAtributo7);
             atributo8.appendChild(valoAtributo8);
-
+            this.guardaConFormato();
             //Añadimos valor
         } catch (ParserConfigurationException | DOMException e) {
             System.err.println("Error: " + e);
@@ -122,7 +117,7 @@ public class GestorXML {
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
             DOMImplementation implementation = builder.getDOMImplementation();
-            document = implementation.createDocument(null, "Pasajero", null);
+            document = implementation.createDocument(null, "xml", null);
 
             //Creación de elementos
             //creamos el elemento principal casa
@@ -158,7 +153,7 @@ public class GestorXML {
             atributo2.appendChild(valoAtributo2);
             atributo3.appendChild(valoAtributo3);
             atributo4.appendChild(valoAtributo4);
-
+            this.guardaConFormato();
             //Añadimos valor
         } catch (ParserConfigurationException | DOMException e) {
             System.err.println("Error: " + e);
@@ -170,7 +165,7 @@ public class GestorXML {
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
             DOMImplementation implementation = builder.getDOMImplementation();
-            document = implementation.createDocument(null, "Chofer", null);
+            document = implementation.createDocument(null, "xml", null);
 
             //Creación de elementos
             //creamos el elemento principal casa
@@ -212,7 +207,7 @@ public class GestorXML {
             atributo2.appendChild(valoAtributo2);
             atributo3.appendChild(valoAtributo3);
             atributo4.appendChild(valoAtributo4);
-
+            this.guardaConFormato();
             //Añadimos valor
         } catch (ParserConfigurationException | DOMException e) {
             System.err.println("Error: " + e);
@@ -256,7 +251,7 @@ public class GestorXML {
             atributo1.appendChild(valoAtributo1);
             atributo2.appendChild(valoAtributo2);
             atributo3.appendChild(valoAtributo3);
-
+            this.guardaConFormato();
             //Añadimos valor
         } catch (ParserConfigurationException | DOMException e) {
             System.err.println("Error: " + e);
@@ -300,15 +295,16 @@ public class GestorXML {
             atributo1.appendChild(valoAtributo1);
             atributo2.appendChild(valoAtributo2);
             atributo3.appendChild(valoAtributo3);
-            atributo3.appendChild(valoAtributo4);
+            atributo4.appendChild(valoAtributo4);
             //Añadimos valor
+            this.guardaConFormato();
         } catch (ParserConfigurationException | DOMException e) {
             System.err.println("Error: " + e);
         }
     }
 
     public GestorXML(Mantenimiento mantenimiento) {
-        this.ruta = "BaseDatos//Mantenimieto//mantenimiento_" + String.valueOf(mantenimiento.getIdServicio()) + ".xml";
+        this.ruta = "BaseDatos//Mantenimientos//mantenimiento_" + String.valueOf(mantenimiento.getIdServicio()) + ".xml";
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
             DOMImplementation implementation = builder.getDOMImplementation();
@@ -354,18 +350,18 @@ public class GestorXML {
             atributo4.appendChild(valoAtributo4);
             atributo5.appendChild(valoAtributo5);
             atributo6.appendChild(valoAtributo6);
-//Añadimos valor
+            this.guardaConFormato();
         } catch (ParserConfigurationException | DOMException e) {
             System.err.println("Error: " + e);
         }
     }
 
     public GestorXML(Empresa empresa) {
-        this.ruta = "BaseDatos//Empresa//Empresa_" + String.valueOf(empresa.getNumCedulaJuridica()) + ".xml";
+        this.ruta = "BaseDatos//Empresas//Empresa_" + String.valueOf(empresa.getNumCedulaJuridica()) + ".xml";
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
             DOMImplementation implementation = builder.getDOMImplementation();
-            document = implementation.createDocument(null, "Empresa", null);
+            document = implementation.createDocument(null, "xml", null);
 
             //Creación de elementos
             //creamos el elemento principal casa
@@ -397,6 +393,7 @@ public class GestorXML {
             atributo1.appendChild(valoAtributo1);
             atributo2.appendChild(valoAtributo2);
             atributo3.appendChild(valoAtributo3);
+            this.guardaConFormato();
 
 //Añadimos valor
         } catch (ParserConfigurationException | DOMException e) {
@@ -404,7 +401,7 @@ public class GestorXML {
         }
     }
 
-    public void guardaConFormato() {
+    private void guardaConFormato() {
         try {
             TransformerFactory transFact = TransformerFactory.newInstance();
 
@@ -438,65 +435,4 @@ public class GestorXML {
         }
     }
 
-    public void CargarXML(String ruta) throws SAXException {
-        try {
-            DocumentBuilderFactory fábricaCreadorDocumento = DocumentBuilderFactory.newInstance();
-            DocumentBuilder creadorDocumento = fábricaCreadorDocumento.newDocumentBuilder();
-            Document documento = creadorDocumento.parse(ruta);
-            //Obtener el elemento raíz del documento
-            
-            Element raiz = documento.getDocumentElement();
-
-            //Obtener la lista de nodos que tienen etiqueta "EMPLEADO"
-            NodeList listaAtributos = raiz.getElementsByTagName(raiz.getTagName());
-            //Recorrer la lista de empleados
-            for (int i = 0; i < listaAtributos.getLength(); i++) {
-                //Obtener de la lista un empleado tras otro
-                Node objeto = listaAtributos.item(i);
-
-                //Obtener la lista de los datos que contiene ese empleado
-                NodeList datosEmpleado = objeto.getChildNodes();
-                //Recorrer la lista de los datos que contiene el empleado
-                for (int j = 0; j < datosEmpleado.getLength(); j++) {
-                    //Obtener de la lista de datos un dato tras otro
-                    Node dato = datosEmpleado.item(j);
-
-                    //Comprobar que el dato se trata de un nodo de tipo Element
-                    if (dato.getNodeType() == Node.ELEMENT_NODE) {
-                        //Mostrar el nombre del tipo de dato
-                        System.out.print(dato.getNodeName() + ": ");
-                        //El valor está contenido en un hijo del nodo Element
-                        Node datoContenido = dato.getFirstChild();
-                        //Mostrar el valor contenido en el nodo que debe ser de tipo Text
-                        if (datoContenido != null && datoContenido.getNodeType() == Node.TEXT_NODE) {
-                            lista.add(datoContenido.getNodeValue());
-                        }
-                    }
-                }
-                //Se deja un salto de línea de separación entre cada empleado
-                System.out.println();
-            }
-
-        } catch (SAXException ex) {
-            System.out.println("ERROR: El formato XML del fichero no es correcto\n" + ex.getMessage());
-            ex.printStackTrace();
-        } catch (IOException ex) {
-            System.out.println("ERROR: Se ha producido un error el leer el fichero\n" + ex.getMessage());
-            ex.printStackTrace();
-        } catch (ParserConfigurationException ex) {
-            System.out.println("ERROR: No se ha podido crear el generador de documentos XML\n" + ex.getMessage());
-            ex.printStackTrace();
-        }
-    }
-
-    public ArrayList<String> getLista() {
-        return lista;
-    }
-
-    public String getTitulo() {
-        Element raiz = document.getDocumentElement();
-       
-
-        return "2";
-    }
 }

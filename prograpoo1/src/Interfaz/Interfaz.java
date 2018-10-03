@@ -5,7 +5,12 @@
  */
 package Interfaz;
 
+import Archivos.AdministradorArchivos;
+import Archivos.LectorXML;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -16,7 +21,7 @@ public final class Interfaz extends javax.swing.JFrame {
     /**
      * Creates new form Interfaz
      */
-    public Interfaz() {
+    public Interfaz() throws SAXException {
         initComponents();
         insertarEnlista();
     }
@@ -26,16 +31,18 @@ public final class Interfaz extends javax.swing.JFrame {
     
     }
     
-    public void insertarEnlista(){
-        
+    private void insertarEnlista() throws SAXException{
         DefaultTableModel modelo = (DefaultTableModel) listaVehiculos.getModel() ;
         Object [] fila = new Object[5]; 
-        for(int indice=0; indice<10;indice++){
-            fila[0] = String.valueOf(indice);
-            fila[1] = "c";
-            fila[2] = "b";
-            fila[3] = "y";
-            fila[4] = "w";
+        AdministradorArchivos vehiculos = new AdministradorArchivos();
+        for (String ficherosVehiculo : vehiculos.getFicherosVehiculos()) {
+            LectorXML datos = new LectorXML(ficherosVehiculo, "Vehiculo");
+            System.out.println(datos.getListaElementos().get(0));
+            fila[0] = datos.getListaElementos().get(0);
+            fila[1] = datos.getListaElementos().get(1);
+            fila[2] =datos.getListaElementos().get(2);
+            fila[3] = datos.getListaElementos().get(3);
+            fila[4] = datos.getListaElementos().get(4);
             modelo.addRow(fila);
         }
 
@@ -150,7 +157,11 @@ public final class Interfaz extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Interfaz().setVisible(true);
+                try {
+                    new Interfaz().setVisible(true);
+                } catch (SAXException ex) {
+                    Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
