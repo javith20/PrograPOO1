@@ -33,7 +33,7 @@ public class LectorXML {
      
      
      
-     public ArrayList<String> getListaElementos() throws SAXException {
+     public ArrayList<String> getListaElementos() {
         try {
             DocumentBuilderFactory fábricaCreadorDocumento = DocumentBuilderFactory.newInstance();
             DocumentBuilder creadorDocumento = fábricaCreadorDocumento.newDocumentBuilder();
@@ -41,7 +41,7 @@ public class LectorXML {
             //Obtener el elemento raíz del documento
             Element raiz = documento.getDocumentElement();
 
-            //Obtener la lista de nodos que tienen etiqueta "EMPLEADO"
+            //Obtener la lista de nodos que tienen etiqueta
             NodeList listaEmpleados = raiz.getElementsByTagName(this.tipo);
             //Recorrer la lista de empleados
             for (int i = 0; i < listaEmpleados.getLength(); i++) {

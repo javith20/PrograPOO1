@@ -6,13 +6,14 @@
 package Archivos;
 
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  *
  * @author Javith
  */
 public class AdministradorArchivos {
-
+    
     private final File dirVehiculos = new File("BaseDatos//Vehiculos//");
     private final File dirPasajeros = new File("BaseDatos//Pasajeros//");
     private final File dirChoferes = new File("BaseDatos//Choferes//");
@@ -20,42 +21,64 @@ public class AdministradorArchivos {
     private final File dirDirecciones = new File("BaseDatos//Direcciones//");
     private final File dirMantenimientos = new File("BaseDatos//Mantenimientos//");
     private final File dirEmpresas = new File("BaseDatos//Empresas//");
-    String[] ficherosVehiculos = dirVehiculos.list();
-    String[] ficherosPasajeros = dirPasajeros.list();
-    String[] ficherosChoferes = dirChoferes.list();
-    String[] ficherosLicencias = dirLicencias.list();
-    String[] ficherosDirecciones = dirDirecciones.list();
-    String[] ficherosMantenimientos = dirMantenimientos.list();
-    String[] ficherosEmpresas = dirEmpresas.list();
+   
     
     public AdministradorArchivos(){
     }
-    public String[] getFicherosVehiculos() {
-        return ficherosVehiculos;
+    public ArrayList<String> getFicherosVehiculos() {
+        ArrayList<String> lista = new ArrayList<>();
+        for(int indice=0;dirVehiculos.list().length>indice;indice++){
+            lista.add(dirVehiculos.getAbsolutePath()+"\\"+dirVehiculos.list()[indice]);
+        }
+        return lista;
     }
 
-    public String[] getFicherosPasajeros() {
-        return ficherosPasajeros;
+    public ArrayList<String> getFicherosPasajeros() {
+         ArrayList<String> lista = new ArrayList<>();
+        for(int indice=0;dirVehiculos.list().length>indice;indice++){
+            lista.add("BaseDatos//Vehiculos//"+dirVehiculos.list()[1]);
+        }
+        return lista;
     }
 
-    public String[] getFicherosChoferes() {
-        return ficherosChoferes;
+    public ArrayList<String> getFicherosChoferes() {
+       ArrayList<String> lista = new ArrayList<>();
+        for(int indice=0;dirVehiculos.list().length>indice;indice++){
+            lista.add("BaseDatos//Vehiculos//"+dirVehiculos.list()[1]);
+        }
+        return lista;
     }
 
-    public String[] getFicherosLicencias() {
-        return ficherosLicencias;
+    public ArrayList<String> getFicherosLicencias() {
+        ArrayList<String> lista = new ArrayList<>();
+        for(int indice=0;dirVehiculos.list().length>indice;indice++){
+            lista.add("BaseDatos//Vehiculos//"+dirVehiculos.list()[1]);
+        }
+        return lista;
     }
 
-    public String[] getFicherosDirecciones() {
-        return ficherosDirecciones;
+    public ArrayList<String> getFicherosDirecciones() {
+       ArrayList<String> lista = new ArrayList<>();
+        for(int indice=0;dirVehiculos.list().length>indice;indice++){
+            lista.add("BaseDatos//Vehiculos//"+dirVehiculos.list()[1]);
+        }
+        return lista;
     }
 
-    public String[] getFicherosMantenimientos() {
-        return ficherosMantenimientos;
+    public ArrayList<String> getFicherosMantenimientos() {
+        ArrayList<String> lista = new ArrayList<>();
+        for(int indice=0;dirVehiculos.list().length>indice;indice++){
+            lista.add("BaseDatos//Vehiculos//"+dirVehiculos.list()[1]);
+        }
+        return lista;
     }
 
-    public String[] getFicherosEmpresas() {
-        return ficherosEmpresas;
+    public ArrayList<String> getFicherosEmpresas() {
+        ArrayList<String> lista = new ArrayList<>();
+        for(int indice=0;dirVehiculos.list().length>indice;indice++){
+            lista.add("BaseDatos//Vehiculos//"+dirVehiculos.list()[1]);
+        }
+        return lista;
     }
     
     

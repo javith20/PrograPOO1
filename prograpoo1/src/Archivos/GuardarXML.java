@@ -41,14 +41,14 @@ import prograpoo1.Vehiculo;
  *
  * @author Javith
  */
-public class GestorXML {
+public class GuardarXML {
 
     private Document document = null;
     private DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
     private String ruta;
 
 
-    public GestorXML(Vehiculo vehiculo) {
+    public GuardarXML(Vehiculo vehiculo) {
         this.ruta = "BaseDatos//Vehiculos//Vehiculo_" + vehiculo.getPlaca() + ".xml";
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
@@ -112,7 +112,7 @@ public class GestorXML {
         }
     }
 
-    public GestorXML(Pasajero pasajero) {
+    public GuardarXML(Pasajero pasajero) {
         this.ruta = "BaseDatos//Pasajeros//Pasajero_" + String.valueOf(pasajero.getCedula()) + ".xml";
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
@@ -160,7 +160,7 @@ public class GestorXML {
         }
     }
 
-    public GestorXML(Chofer chofer) {
+    public GuardarXML(Chofer chofer) {
         this.ruta = "BaseDatos//Choferes//Chofer_" + String.valueOf(chofer.getCedula()) + ".xml";
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
@@ -214,7 +214,7 @@ public class GestorXML {
         }
     }
 
-    public GestorXML(Licencia licencia) {
+    public GuardarXML(Licencia licencia) {
         this.ruta = "BaseDatos//Licencias//Licencia_" + String.valueOf(licencia.getNumero()) + ".xml";
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
@@ -258,7 +258,7 @@ public class GestorXML {
         }
     }
 
-    public GestorXML(Direccion direccion) {
+    public GuardarXML(Direccion direccion) {
         this.ruta = "BaseDatos//Direcciones//Direccion_" + String.valueOf(direccion.getID()) + ".xml";
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
@@ -303,7 +303,7 @@ public class GestorXML {
         }
     }
 
-    public GestorXML(Mantenimiento mantenimiento) {
+    public GuardarXML(Mantenimiento mantenimiento) {
         this.ruta = "BaseDatos//Mantenimientos//mantenimiento_" + String.valueOf(mantenimiento.getIdServicio()) + ".xml";
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
@@ -356,7 +356,7 @@ public class GestorXML {
         }
     }
 
-    public GestorXML(Empresa empresa) {
+    public GuardarXML(Empresa empresa) {
         this.ruta = "BaseDatos//Empresas//Empresa_" + String.valueOf(empresa.getNumCedulaJuridica()) + ".xml";
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();

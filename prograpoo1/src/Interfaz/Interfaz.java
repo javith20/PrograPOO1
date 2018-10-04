@@ -7,6 +7,7 @@ package Interfaz;
 
 import Archivos.AdministradorArchivos;
 import Archivos.LectorXML;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -17,13 +18,19 @@ import org.xml.sax.SAXException;
  * @author Javith
  */
 public final class Interfaz extends javax.swing.JFrame {
-   
+    private AdministradorArchivos administradorArchivos =new AdministradorArchivos();
     /**
      * Creates new form Interfaz
      */
-    public Interfaz() throws SAXException {
+    public Interfaz() {
         initComponents();
-        insertarEnlista();
+        System.err.println(administradorArchivos.getFicherosVehiculos().get(0));
+        try {
+          insertarEnlista(administradorArchivos.getFicherosVehiculos(),"Vehiculo");  
+        } catch (Exception e) {
+            
+        }
+        
     }
     
     private void CargarComponentes(){
@@ -31,12 +38,12 @@ public final class Interfaz extends javax.swing.JFrame {
     
     }
     
-    private void insertarEnlista() throws SAXException{
+    private void insertarEnlista(ArrayList<String> lista,String Criterio) {
         DefaultTableModel modelo = (DefaultTableModel) listaVehiculos.getModel() ;
         Object [] fila = new Object[5]; 
-        AdministradorArchivos vehiculos = new AdministradorArchivos();
-        for (String ficherosVehiculo : vehiculos.getFicherosVehiculos()) {
-            LectorXML datos = new LectorXML(ficherosVehiculo, "Vehiculo");
+        
+        for (int indice=0;lista.size()>indice;indice++) {
+            LectorXML datos = new LectorXML(lista.get(indice), Criterio);
             System.out.println(datos.getListaElementos().get(0));
             fila[0] = datos.getListaElementos().get(0);
             fila[1] = datos.getListaElementos().get(1);
@@ -59,10 +66,18 @@ public final class Interfaz extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         listaVehiculos = new javax.swing.JTable();
+        txtBuscado = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        comboFiltrado = new javax.swing.JComboBox<>();
         barraMenu = new javax.swing.JMenuBar();
         subMenuArchivo = new javax.swing.JMenu();
         itemUsuario = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenu1 = new javax.swing.JMenu();
+        mINuevoChofer = new javax.swing.JMenuItem();
+        mINuevoEmpresa = new javax.swing.JMenuItem();
+        mINuevoPasajero = new javax.swing.JMenuItem();
+        mINuevoVehiculo = new javax.swing.JMenuItem();
         itemSalir = new javax.swing.JMenuItem();
         subMenuEditar = new javax.swing.JMenu();
 
@@ -86,11 +101,53 @@ public final class Interfaz extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(listaVehiculos);
 
+        txtBuscado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscadoActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setText("Vehiculos");
+
+        comboFiltrado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboFiltrado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboFiltradoActionPerformed(evt);
+            }
+        });
+
         subMenuArchivo.setText("Archivo");
 
         itemUsuario.setText("Usuario");
         subMenuArchivo.add(itemUsuario);
         subMenuArchivo.add(jSeparator1);
+
+        jMenu1.setText("Nuevo");
+
+        mINuevoChofer.setText("Chofer");
+        jMenu1.add(mINuevoChofer);
+
+        mINuevoEmpresa.setText("Empresa");
+        jMenu1.add(mINuevoEmpresa);
+
+        mINuevoPasajero.setText("Pasajero");
+        mINuevoPasajero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mINuevoPasajeroActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mINuevoPasajero);
+
+        mINuevoVehiculo.setText("Vehiculo");
+        mINuevoVehiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mINuevoVehiculoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mINuevoVehiculo);
+
+        subMenuArchivo.add(jMenu1);
 
         itemSalir.setText("Salir");
         itemSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -112,18 +169,53 @@ public final class Interfaz extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 666, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(comboFiltrado, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtBuscado, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(164, 164, 164))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBuscado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboFiltrado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void itemSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSalirActionPerformed
-        // TODO add your handling code here:
+     
     }//GEN-LAST:event_itemSalirActionPerformed
+
+    private void mINuevoPasajeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mINuevoPasajeroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mINuevoPasajeroActionPerformed
+
+    private void txtBuscadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscadoActionPerformed
+
+    private void comboFiltradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFiltradoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboFiltradoActionPerformed
+
+    private void mINuevoVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mINuevoVehiculoActionPerformed
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Crear().setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_mINuevoVehiculoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -157,23 +249,29 @@ public final class Interfaz extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                try {
+                
                     new Interfaz().setVisible(true);
-                } catch (SAXException ex) {
-                    Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;
+    private javax.swing.JComboBox<String> comboFiltrado;
     private javax.swing.JMenuItem itemSalir;
     private javax.swing.JMenuItem itemUsuario;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JTable listaVehiculos;
+    private javax.swing.JMenuItem mINuevoChofer;
+    private javax.swing.JMenuItem mINuevoEmpresa;
+    private javax.swing.JMenuItem mINuevoPasajero;
+    private javax.swing.JMenuItem mINuevoVehiculo;
     private javax.swing.JMenu subMenuArchivo;
     private javax.swing.JMenu subMenuEditar;
+    private javax.swing.JTextField txtBuscado;
     // End of variables declaration//GEN-END:variables
 }
