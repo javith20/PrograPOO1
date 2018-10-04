@@ -23,7 +23,7 @@ public class Vehiculo {
     private int estado;
     private ArrayList<Mantenimiento> historialMantenimiento;
     
-    public Vehiculo(String placa, int agnoFabricacion, String color, String marca, int capacidad, double kilometraje, String vin, String sede, int estado) {
+    public Vehiculo(String placa, String color, String marca, int agnoFabricacion, int capacidad, double kilometraje, String vin, String sede, int estado) {
         this.placa = placa;
         this.agnoFabricacion = agnoFabricacion;
         this.color = color;

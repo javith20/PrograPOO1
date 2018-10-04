@@ -7,6 +7,7 @@ package Archivos;
 
 import java.io.File;
 import java.util.ArrayList;
+import prograpoo1.*;
 
 /**
  *
@@ -21,14 +22,20 @@ public class AdministradorArchivos {
     private final File dirDirecciones = new File("BaseDatos//Direcciones//");
     private final File dirMantenimientos = new File("BaseDatos//Mantenimientos//");
     private final File dirEmpresas = new File("BaseDatos//Empresas//");
-   
+    private LectorXML lectorXML;
     
     public AdministradorArchivos(){
+        lectorXML =new LectorXML();
     }
-    public ArrayList<String> getFicherosVehiculos() {
-        ArrayList<String> lista = new ArrayList<>();
+    public ArrayList<Vehiculo> getFicherosVehiculos() {
+        ArrayList<Vehiculo> lista = new ArrayList<>();
+         ArrayList<String> aux;
         for(int indice=0;dirVehiculos.list().length>indice;indice++){
-            lista.add(dirVehiculos.getAbsolutePath()+"\\"+dirVehiculos.list()[indice]);
+             aux = lectorXML.getListaElementos(dirVehiculos.getAbsolutePath()+"\\"+dirVehiculos.list()[indice], "Vehiculo");
+            Vehiculo nuevo;
+            nuevo = new Vehiculo(aux.get(0),aux.get(1), aux.get(2), Integer.parseInt(aux.get(3)), Integer.parseInt(aux.get(4)), Double.parseDouble(aux.get(5)), aux.get(6), aux.get(7), Integer.parseInt(aux.get(8)));
+            aux.clear();
+            lista.add(nuevo);
         }
         return lista;
     }

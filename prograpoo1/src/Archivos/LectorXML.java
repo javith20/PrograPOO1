@@ -25,24 +25,22 @@ public class LectorXML {
      private String tipo;
      private ArrayList<String> lista;
 
-    public LectorXML(String _ruta,String _tipo) {
-        this.ruta =_ruta;
-        this.tipo =_tipo;
+    public LectorXML() {
         lista= new ArrayList<>();
     }
      
      
      
-     public ArrayList<String> getListaElementos() {
+     public ArrayList<String> getListaElementos(String _ruta,String _tipo) {
         try {
             DocumentBuilderFactory fábricaCreadorDocumento = DocumentBuilderFactory.newInstance();
             DocumentBuilder creadorDocumento = fábricaCreadorDocumento.newDocumentBuilder();
-            Document documento = creadorDocumento.parse(this.ruta);
+            Document documento = creadorDocumento.parse(_ruta);
             //Obtener el elemento raíz del documento
             Element raiz = documento.getDocumentElement();
 
             //Obtener la lista de nodos que tienen etiqueta
-            NodeList listaEmpleados = raiz.getElementsByTagName(this.tipo);
+            NodeList listaEmpleados = raiz.getElementsByTagName(_tipo);
             //Recorrer la lista de empleados
             for (int i = 0; i < listaEmpleados.getLength(); i++) {
                 //Obtener de la lista un empleado tras otro

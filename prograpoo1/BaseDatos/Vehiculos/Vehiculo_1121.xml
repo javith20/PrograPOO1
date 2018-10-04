@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <xml>
    <Vehiculo>
-      <Placa>1121</Placa>
-      <Color>32</Color>
-      <Marca>BMD</Marca>
-      <AgnoFabricacion>3213</AgnoFabricacion>
-      <Capacidad>534</Capacidad>
+      <Placa>BBC-001</Placa>
+      <Color>Blanco</Color>
+      <Marca>Toyota</Marca>
+      <AgnoFabricacion>2013</AgnoFabricacion>
+      <Capacidad>5</Capacidad>
       <Kilometraje>32432.0</Kilometraje>
-      <Vin>ewqe</Vin>
-      <Sede>San p</Sede>
-      <Estado>23</Estado>
+      <Vin>1221121-2121</Vin>
+      <Sede>San Jose</Sede>
+      <Estado>1</Estado>
    </Vehiculo>
 </xml>
 

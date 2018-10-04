@@ -5,7 +5,9 @@
  */
 package Archivos;
 
+import Conexiones.Correo;
 import java.io.File;
+import Archivos.AdministradorArchivos;
 
 /**
  *
@@ -17,9 +19,10 @@ public class main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        AdministradorArchivos a =new AdministradorArchivos();
-        LectorXML al =new LectorXML(a.getFicherosVehiculos().get(0),"Vehiculo");
-        System.out.println(al.getListaElementos());
+
+        AdministradorArchivos a = new AdministradorArchivos();
+        a.getFicherosVehiculos();
+
     }
-    
+
 }

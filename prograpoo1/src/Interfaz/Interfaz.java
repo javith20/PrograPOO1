@@ -7,18 +7,21 @@ package Interfaz;
 
 import Archivos.AdministradorArchivos;
 import Archivos.LectorXML;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import org.xml.sax.SAXException;
 
+import prograpoo1.Vehiculo;
 /**
  *
  * @author Javith
  */
 public final class Interfaz extends javax.swing.JFrame {
     private AdministradorArchivos administradorArchivos =new AdministradorArchivos();
+    private ArrayList<Vehiculo> ListaVehiculos = administradorArchivos.getFicherosVehiculos() ;
     /**
      * Creates new form Interfaz
      */
@@ -26,7 +29,7 @@ public final class Interfaz extends javax.swing.JFrame {
         initComponents();
         System.err.println(administradorArchivos.getFicherosVehiculos().get(0));
         try {
-          insertarEnlista(administradorArchivos.getFicherosVehiculos(),"Vehiculo");  
+          insertarEnlista(this.ListaVehiculos);  
         } catch (Exception e) {
             
         }
@@ -38,18 +41,17 @@ public final class Interfaz extends javax.swing.JFrame {
     
     }
     
-    private void insertarEnlista(ArrayList<String> lista,String Criterio) {
+    private void insertarEnlista(ArrayList<Vehiculo> lista) {
         DefaultTableModel modelo = (DefaultTableModel) listaVehiculos.getModel() ;
         Object [] fila = new Object[5]; 
         
         for (int indice=0;lista.size()>indice;indice++) {
-            LectorXML datos = new LectorXML(lista.get(indice), Criterio);
-            System.out.println(datos.getListaElementos().get(0));
-            fila[0] = datos.getListaElementos().get(0);
-            fila[1] = datos.getListaElementos().get(1);
-            fila[2] =datos.getListaElementos().get(2);
-            fila[3] = datos.getListaElementos().get(3);
-            fila[4] = datos.getListaElementos().get(4);
+            
+            fila[0] = lista.get(indice).getPlaca();
+            fila[1] = lista.get(indice).getMarca();
+            fila[2] = lista.get(indice).getColor();
+            fila[3] = lista.get(indice).getSede();
+            fila[4] = lista.get(indice).getEstado();
             modelo.addRow(fila);
         }
 
@@ -83,6 +85,13 @@ public final class Interfaz extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jScrollPane1.setForeground(new java.awt.Color(255, 0, 0));
+        jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jScrollPane1MouseClicked(evt);
+            }
+        });
+
         listaVehiculos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -97,6 +106,11 @@ public final class Interfaz extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        listaVehiculos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listaVehiculosMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(listaVehiculos);
@@ -120,6 +134,11 @@ public final class Interfaz extends javax.swing.JFrame {
         subMenuArchivo.setText("Archivo");
 
         itemUsuario.setText("Usuario");
+        itemUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemUsuarioActionPerformed(evt);
+            }
+        });
         subMenuArchivo.add(itemUsuario);
         subMenuArchivo.add(jSeparator1);
 
@@ -216,6 +235,24 @@ public final class Interfaz extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_mINuevoVehiculoActionPerformed
+
+    private void itemUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemUsuarioActionPerformed
+      
+        // TODO add your handling code here:
+    }//GEN-LAST:event_itemUsuarioActionPerformed
+
+    private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
+              // TODO add your handling code here:
+    }//GEN-LAST:event_jScrollPane1MouseClicked
+
+    private void listaVehiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaVehiculosMouseClicked
+      Vehiculo capturado =ListaVehiculos.get(this.listaVehiculos.getSelectedRow());
+      java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new DatosVehiculo(capturado).setVisible(true);
+            }
+        });     
+    }//GEN-LAST:event_listaVehiculosMouseClicked
 
     /**
      * @param args the command line arguments

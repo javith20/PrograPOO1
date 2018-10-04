@@ -53,7 +53,7 @@ public class Crear extends javax.swing.JFrame {
         btnAceptar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         labelAtrib0.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         labelAtrib0.setText("Placa");
@@ -218,7 +218,7 @@ public class Crear extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        Vehiculo nuevo = new Vehiculo(this.txtPlaca.getText(),Integer.parseInt((this.txtagnoF.getText())) , this.txtColor.getText(), this.txtMarca.getText(), Integer.parseInt(this.txtCapacidad.getText()), Double.valueOf(this.txtKilometros.getText()), this.txtSede.getText(), this.txtSede.getText(), Integer.parseInt(this.txtEstado.getText()));
+        Vehiculo nuevo = new Vehiculo(this.txtPlaca.getText(), this.txtColor.getText(), this.txtMarca.getText(),Integer.parseInt((this.txtagnoF.getText())), Integer.parseInt(this.txtCapacidad.getText()), Double.valueOf(this.txtKilometros.getText()), this.txtVIN.getText(), this.txtSede.getText(), Integer.parseInt(this.txtEstado.getText()));
         GuardarXML garda =new GuardarXML(nuevo);
     }//GEN-LAST:event_btnAceptarActionPerformed
 
