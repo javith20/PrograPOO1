@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xml>
+   <Vehiculo>
+      <Placa>BRC-091</Placa>
+      <Color>Azul</Color>
+      <Marca>Hyundai</Marca>
+      <AgnoFabricacion>2015</AgnoFabricacion>
+      <Capacidad>5</Capacidad>
+      <Kilometraje>3500.0</Kilometraje>
+      <Vin>12345678</Vin>
+      <Sede>Cartago</Sede>
+      <Estado>0</Estado>
+   </Vehiculo>
+</xml>
+
