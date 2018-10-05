@@ -21,7 +21,7 @@ public class main {
     public static void main(String[] args) {
 
         AdministradorArchivos a = new AdministradorArchivos();
-        a.getFicherosVehiculos();
+        a.getPasajeros();
 
     }
 

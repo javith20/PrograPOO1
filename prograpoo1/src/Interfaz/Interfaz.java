@@ -15,38 +15,50 @@ import javax.swing.table.DefaultTableModel;
 import org.xml.sax.SAXException;
 
 import prograpoo1.Vehiculo;
+
 /**
  *
  * @author Javith
  */
 public final class Interfaz extends javax.swing.JFrame {
-    private AdministradorArchivos administradorArchivos =new AdministradorArchivos();
-    private ArrayList<Vehiculo> ListaVehiculos = administradorArchivos.getFicherosVehiculos() ;
+
+    private AdministradorArchivos administradorArchivos = new AdministradorArchivos();
+    private ArrayList<Vehiculo> ListaVehiculos = administradorArchivos.getVehiculos();
+    private DefaultTableModel modelo;
+
     /**
      * Creates new form Interfaz
      */
     public Interfaz() {
         initComponents();
-        System.err.println(administradorArchivos.getFicherosVehiculos().get(0));
         try {
-          insertarEnlista(this.ListaVehiculos);  
+            CargarComponentes();
         } catch (Exception e) {
-            
+
         }
-        
+
     }
-    
-    private void CargarComponentes(){
-        
-    
+
+    private void CargarComponentes() {
+        this.comboFiltrado.removeAllItems();
+        this.comboFiltrado.addItem("Placa");
+        this.comboFiltrado.addItem("Color");
+        this.comboFiltrado.addItem("Marca");
+        this.comboFiltrado.addItem("Capacidad");
+        this.comboFiltrado.addItem("VIN");
+        this.comboFiltrado.addItem("Sede");
+        this.comboFiltrado.addItem("Estado");
+        insertarEnlista(this.ListaVehiculos);
     }
-    
+
     private void insertarEnlista(ArrayList<Vehiculo> lista) {
-        DefaultTableModel modelo = (DefaultTableModel) listaVehiculos.getModel() ;
-        Object [] fila = new Object[5]; 
-        
-        for (int indice=0;lista.size()>indice;indice++) {
-            
+        Clear();
+        modelo = (DefaultTableModel) TableVehiculos.getModel();
+
+        Object[] fila = new Object[5];
+
+        for (int indice = 0; lista.size() > indice; indice++) {
+
             fila[0] = lista.get(indice).getPlaca();
             fila[1] = lista.get(indice).getMarca();
             fila[2] = lista.get(indice).getColor();
@@ -56,7 +68,14 @@ public final class Interfaz extends javax.swing.JFrame {
         }
 
     }
-    
+
+    private void Clear() {
+        for (int i = 0; i < TableVehiculos.getRowCount(); i++) {
+            modelo.removeRow(i);
+            i -= 1;
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -67,7 +86,7 @@ public final class Interfaz extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        listaVehiculos = new javax.swing.JTable();
+        TableVehiculos = new javax.swing.JTable();
         txtBuscado = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         comboFiltrado = new javax.swing.JComboBox<>();
@@ -92,7 +111,7 @@ public final class Interfaz extends javax.swing.JFrame {
             }
         });
 
-        listaVehiculos.setModel(new javax.swing.table.DefaultTableModel(
+        TableVehiculos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -108,16 +127,21 @@ public final class Interfaz extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        listaVehiculos.addMouseListener(new java.awt.event.MouseAdapter() {
+        TableVehiculos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listaVehiculosMouseClicked(evt);
+                TableVehiculosMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(listaVehiculos);
+        jScrollPane1.setViewportView(TableVehiculos);
 
         txtBuscado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBuscadoActionPerformed(evt);
+            }
+        });
+        txtBuscado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscadoKeyTyped(evt);
             }
         });
 
@@ -213,7 +237,7 @@ public final class Interfaz extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void itemSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSalirActionPerformed
-     
+
     }//GEN-LAST:event_itemSalirActionPerformed
 
     private void mINuevoPasajeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mINuevoPasajeroActionPerformed
@@ -229,37 +253,49 @@ public final class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_comboFiltradoActionPerformed
 
     private void mINuevoVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mINuevoVehiculoActionPerformed
+        Vehiculo vehiculo;
+        this.disable();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Crear().setVisible(true);
             }
         });
+        this.enable();
     }//GEN-LAST:event_mINuevoVehiculoActionPerformed
 
     private void itemUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemUsuarioActionPerformed
-      
+
         // TODO add your handling code here:
     }//GEN-LAST:event_itemUsuarioActionPerformed
 
     private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
-              // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_jScrollPane1MouseClicked
 
-    private void listaVehiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaVehiculosMouseClicked
-      Vehiculo capturado =ListaVehiculos.get(this.listaVehiculos.getSelectedRow());
-      java.awt.EventQueue.invokeLater(new Runnable() {
+    private void TableVehiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableVehiculosMouseClicked
+        this.disable();
+        Vehiculo capturado = ListaVehiculos.get(this.TableVehiculos.getSelectedRow());
+        java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DatosVehiculo(capturado).setVisible(true);
+                new MostrarDatos(capturado).setVisible(true);
             }
-        });     
-    }//GEN-LAST:event_listaVehiculosMouseClicked
+        });
+        
+    }//GEN-LAST:event_TableVehiculosMouseClicked
+
+    private void txtBuscadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscadoKeyTyped
+        if(this.txtBuscado.getText().length()==0)
+            insertarEnlista(ListaVehiculos);
+        else
+            insertarEnlista(administradorArchivos.filtradoVehiculos(this.comboFiltrado.getSelectedIndex(),this.txtBuscado.getText()));
+
+    }//GEN-LAST:event_txtBuscadoKeyTyped
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
-      
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -286,14 +322,15 @@ public final class Interfaz extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                
-                    new Interfaz().setVisible(true);
-                
+
+                new Interfaz().setVisible(true);
+
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable TableVehiculos;
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JComboBox<String> comboFiltrado;
     private javax.swing.JMenuItem itemSalir;
@@ -302,7 +339,6 @@ public final class Interfaz extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
-    private javax.swing.JTable listaVehiculos;
     private javax.swing.JMenuItem mINuevoChofer;
     private javax.swing.JMenuItem mINuevoEmpresa;
     private javax.swing.JMenuItem mINuevoPasajero;

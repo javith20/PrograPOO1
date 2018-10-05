@@ -9,7 +9,7 @@
       <Kilometraje>3500.0</Kilometraje>
       <Vin>12345678</Vin>
       <Sede>Cartago</Sede>
-      <Estado>0</Estado>
+      <Estado>Servicio</Estado>
    </Vehiculo>
 </xml>
 

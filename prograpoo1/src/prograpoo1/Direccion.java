@@ -54,6 +54,12 @@ public class Direccion {
      public String getID() {
         return ID;
     }
+
+    @Override
+    public String toString() {
+        return   (provincia+ ", " + canton + ", " + distrito + ", " + segnas );
+    }
+    
     public Direccion(String provincia, String canton, String distrito, String segnas) {
         this.provincia = provincia;
         this.canton = canton;

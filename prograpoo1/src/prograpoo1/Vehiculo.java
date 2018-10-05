@@ -20,10 +20,10 @@ public class Vehiculo {
     private double kilometraje;
     private String vin;
     private String sede;
-    private int estado;
+    private String estado;
     private ArrayList<Mantenimiento> historialMantenimiento;
     
-    public Vehiculo(String placa, String color, String marca, int agnoFabricacion, int capacidad, double kilometraje, String vin, String sede, int estado) {
+    public Vehiculo(String placa, String color, String marca, int agnoFabricacion, int capacidad, double kilometraje, String vin, String sede, String estado) {
         this.placa = placa;
         this.agnoFabricacion = agnoFabricacion;
         this.color = color;
@@ -101,11 +101,11 @@ public class Vehiculo {
         this.sede = sede;
     }
 
-    public int getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(int estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 
