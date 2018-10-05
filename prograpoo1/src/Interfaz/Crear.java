@@ -6,8 +6,8 @@
 package Interfaz;
 
 import Archivos.GuardarXML;
-import prograpoo1.Pasajero;
-import prograpoo1.Vehiculo;
+import LogicaNegocios.Pasajero;
+import LogicaNegocios.Vehiculo;
 
 /**
  *

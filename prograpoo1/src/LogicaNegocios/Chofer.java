@@ -1,8 +1,8 @@
-package prograpoo1;
+package LogicaNegocios;
 
 
 import java.util.ArrayList;
-import prograpoo1.Licencia;
+import LogicaNegocios.Licencia;
 
 public class Chofer{
   private int cedula;

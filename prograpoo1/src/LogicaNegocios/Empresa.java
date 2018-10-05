@@ -1,4 +1,4 @@
-package prograpoo1;
+package LogicaNegocios;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

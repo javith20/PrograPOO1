@@ -5,9 +5,11 @@
  */
 package Archivos;
 
+import LogicaNegocios.Vehiculo;
+import LogicaNegocios.Direccion;
+import LogicaNegocios.Pasajero;
 import java.io.File;
 import java.util.ArrayList;
-import prograpoo1.*;
 
 /**
  *

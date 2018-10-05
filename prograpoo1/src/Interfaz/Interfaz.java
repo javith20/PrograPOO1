@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import org.xml.sax.SAXException;
 
-import prograpoo1.Vehiculo;
+import LogicaNegocios.Vehiculo;
 
 /**
  *
@@ -254,13 +254,13 @@ public final class Interfaz extends javax.swing.JFrame {
 
     private void mINuevoVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mINuevoVehiculoActionPerformed
         Vehiculo vehiculo;
-        this.disable();
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Crear().setVisible(true);
             }
         });
-        this.enable();
+        
     }//GEN-LAST:event_mINuevoVehiculoActionPerformed
 
     private void itemUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemUsuarioActionPerformed
@@ -273,7 +273,7 @@ public final class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_jScrollPane1MouseClicked
 
     private void TableVehiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableVehiculosMouseClicked
-        this.disable();
+
         Vehiculo capturado = ListaVehiculos.get(this.TableVehiculos.getSelectedRow());
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

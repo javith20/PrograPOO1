@@ -29,13 +29,13 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 import org.xml.sax.SAXException;
-import prograpoo1.Chofer;
-import prograpoo1.Direccion;
-import prograpoo1.Empresa;
-import prograpoo1.Licencia;
-import prograpoo1.Mantenimiento;
-import prograpoo1.Pasajero;
-import prograpoo1.Vehiculo;
+import LogicaNegocios.Chofer;
+import LogicaNegocios.Direccion;
+import LogicaNegocios.Empresa;
+import LogicaNegocios.Licencia;
+import LogicaNegocios.Mantenimiento;
+import LogicaNegocios.Pasajero;
+import LogicaNegocios.Vehiculo;
 
 /**
  *
