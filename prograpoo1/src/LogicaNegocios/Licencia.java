@@ -15,8 +15,8 @@ public class Licencia {
 
     private final int numero;
     private final int tipo;
-    private final Date fechaEmision;
-    private final Date fechaExpiracion;
+    private final String fechaEmision;
+    private final String fechaExpiracion;
 
     public int getNumero() {
         return numero;
@@ -26,15 +26,15 @@ public class Licencia {
         return tipo;
     }
 
-    public Date getFechaEmision() {
+    public String getFechaEmision() {
         return fechaEmision;
     }
 
-    public Date getFechaExpiracion() {
+    public String getFechaExpiracion() {
         return fechaExpiracion;
     }
 
-    public Licencia(int numero, int tipo, Date fechaEmision, Date fechaExpiracion) {
+    public Licencia(int numero, int tipo, String fechaEmision, String fechaExpiracion) {
         this.numero = numero;
         this.tipo = tipo;
         this.fechaEmision = fechaEmision;

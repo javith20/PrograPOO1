@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xml>
+   <Direccion>
+      <ID>Dir1</ID>
+      <Provincia>San Jose</Provincia>
+      <Canton>Turrubares</Canton>
+      <Distrito>San Luis</Distrito>
+      <Segnas>1km Rio Turrubares</Segnas>
+   </Direccion>
+</xml>
+

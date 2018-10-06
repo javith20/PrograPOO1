@@ -132,7 +132,7 @@ public class GuardarXML {
             //Ingresamos la info. El color de esta habitación es azul
             Text valoAtributo0 = document.createTextNode(pasajero.getNombre());
             Text valoAtributo1 = document.createTextNode(String.valueOf(pasajero.getCedula()));
-            Text valoAtributo2 = document.createTextNode(pasajero.getDireccion().getID());
+            Text valoAtributo2 = document.createTextNode(pasajero.getDireccion());
             Text valoAtributo3 = document.createTextNode(pasajero.getCorreo());
             Text valoAtributo4 = document.createTextNode(String.valueOf(pasajero.getTelefono()));
 
@@ -400,7 +400,57 @@ public class GuardarXML {
             System.err.println("Error: " + e);
         }
     }
+    
+    public GuardarXML(Empresa empresa) {
+        this.ruta = "BaseDatos//Empresas//Empresa_" + String.valueOf(empresa.getNumCedulaJuridica()) + ".xml";
+        try {
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            DOMImplementation implementation = builder.getDOMImplementation();
+            document = implementation.createDocument(null, "xml", null);
 
+            //Creación de elementos
+            //creamos el elemento principal casa
+            Element tipoObjeto = document.createElement("Viaje");
+            //creamos un nuevo elemento. Casa contiene habitaciones
+            Element atributo0 = document.createElement("ID");
+            Element atributo1 = document.createElement("Pasajeros");
+            Element atributo2 = document.createElement("Solicitud");
+            Element atributo3 = document.createElement("inicioDate");
+            Element atributo4 = document.createElement("finDate");
+            Element atributo5 = document.createElement("Vehiculo");
+            Element atributo6 = document.createElement("Chofer");
+            Element atributo7 = document.createElement("Estado");
+            
+            
+
+            //Ingresamos la info. El color de esta habitación es azul
+            Text valoAtributo0 = document.createTextNode(empresa.getRazonSocial());
+            Text valoAtributo1 = document.createTextNode(String.valueOf(empresa.getNumCedulaJuridica()));
+            Text valoAtributo2 = document.createTextNode(String.valueOf(empresa.getTelefono()));
+            Text valoAtributo3 = document.createTextNode(empresa.getDireccion().getID());
+
+//Asignamos la versión de nuestro XML
+            document.setXmlVersion("1.0");
+            //Añadimos la casa al documento
+            document.getDocumentElement().appendChild(tipoObjeto);
+            //Añadimos el elemento hijo a la raíz
+            tipoObjeto.appendChild(atributo0);
+            tipoObjeto.appendChild(atributo1);
+            tipoObjeto.appendChild(atributo2);
+            tipoObjeto.appendChild(atributo3);
+
+            //Añadimos elemento
+            atributo0.appendChild(valoAtributo0);
+            atributo1.appendChild(valoAtributo1);
+            atributo2.appendChild(valoAtributo2);
+            atributo3.appendChild(valoAtributo3);
+            this.guardaConFormato();
+
+//Añadimos valor
+        } catch (ParserConfigurationException | DOMException e) {
+            System.err.println("Error: " + e);
+        }
+    }
     private void guardaConFormato() {
         try {
             TransformerFactory transFact = TransformerFactory.newInstance();

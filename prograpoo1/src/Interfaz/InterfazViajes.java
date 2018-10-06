@@ -7,6 +7,7 @@ package Interfaz;
 
 import Archivos.AdministradorArchivos;
 import Archivos.LectorXML;
+import LogicaNegocios.Viaje;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -20,15 +21,16 @@ import LogicaNegocios.Vehiculo;
  *
  * @author Javith
  */
-public final class Interfaz extends javax.swing.JFrame {
+public final class InterfazViajes extends javax.swing.JFrame {
 
-    private ArrayList<Vehiculo> ListaVehiculos = InterfazViajes.administradorArchivos.getVehiculos();
+    public  static AdministradorArchivos administradorArchivos = new AdministradorArchivos();
+    private ArrayList<Viaje> ListaVehiculos = administradorArchivos.getViajes());
     private DefaultTableModel modelo;
 
     /**
      * Creates new form Interfaz
      */
-    public Interfaz() {
+    public InterfazViajes() {
         initComponents();
         try {
             CargarComponentes();
@@ -38,17 +40,16 @@ public final class Interfaz extends javax.swing.JFrame {
     }
     private void CargarComponentes() {
         this.comboFiltrado.removeAllItems();
-        this.comboFiltrado.addItem("Placa");
-        this.comboFiltrado.addItem("Color");
-        this.comboFiltrado.addItem("Marca");
-        this.comboFiltrado.addItem("Capacidad");
-        this.comboFiltrado.addItem("VIN");
-        this.comboFiltrado.addItem("Sede");
+        this.comboFiltrado.addItem("ID");
+        this.comboFiltrado.addItem("Fecha Solicitud");
+        this.comboFiltrado.addItem("Fecha Inicio");
+        this.comboFiltrado.addItem("Placa Vehiculo");
+        this.comboFiltrado.addItem("Chofer");
         this.comboFiltrado.addItem("Estado");
         insertarEnlista(this.ListaVehiculos);
     }
 
-    private void insertarEnlista(ArrayList<Vehiculo> lista) {
+    private void insertarEnlista(ArrayList<Viaje> lista) {
         Clear();
         modelo = (DefaultTableModel) TableVehiculos.getModel();
 
@@ -56,11 +57,13 @@ public final class Interfaz extends javax.swing.JFrame {
 
         for (int indice = 0; lista.size() > indice; indice++) {
 
-            fila[0] = lista.get(indice).getPlaca();
-            fila[1] = lista.get(indice).getMarca();
-            fila[2] = lista.get(indice).getColor();
-            fila[3] = lista.get(indice).getSede();
-            fila[4] = lista.get(indice).getEstado();
+            fila[0] = lista.get(indice).getID();
+            fila[1] = lista.get(indice).getChofer().getNombre();
+            fila[2] = lista.get(indice).getVehiculo().getPlaca();
+            fila[3] = lista.get(indice).getEstado();
+            fila[4] = lista.get(indice).getSolicitud();
+            fila[5] = lista.get(indice).getInicioDate();
+            fila[6] = lista.get(indice).getFinDate();
             modelo.addRow(fila);
         }
 
@@ -113,11 +116,11 @@ public final class Interfaz extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Placa", "Marca", "Color", "Sede", "Estado"
+                "ID", "Chofer", "Vehiculo", "Estado", "Fecha Solicitud", "Fecha Inicio", "Fecha Fin"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -277,7 +280,7 @@ public final class Interfaz extends javax.swing.JFrame {
 
     private void TableVehiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableVehiculosMouseClicked
 
-        Vehiculo capturado = ListaVehiculos.get(this.TableVehiculos.getSelectedRow());
+        Viaje capturado = ListaVehiculos.get(this.TableVehiculos.getSelectedRow());
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MostrarDatos(capturado).setVisible(true);
@@ -312,21 +315,22 @@ public final class Interfaz extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Interfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InterfazViajes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Interfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InterfazViajes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Interfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InterfazViajes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Interfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InterfazViajes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
 
-                new Interfaz().setVisible(true);
+                new InterfazViajes().setVisible(true);
 
             }
         });
