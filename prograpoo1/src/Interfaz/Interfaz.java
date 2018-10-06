@@ -36,9 +36,7 @@ public final class Interfaz extends javax.swing.JFrame {
         } catch (Exception e) {
 
         }
-
     }
-
     private void CargarComponentes() {
         this.comboFiltrado.removeAllItems();
         this.comboFiltrado.addItem("Placa");
