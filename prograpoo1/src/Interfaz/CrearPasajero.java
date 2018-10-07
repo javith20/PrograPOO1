@@ -177,7 +177,7 @@ public class CrearPasajero extends javax.swing.JFrame {
         );
 
         labelTitulo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        labelTitulo.setText("Agregar Vehiculo");
+        labelTitulo.setText("Agregar Pasajero");
 
         btnAceptar.setText("Aceptar");
         btnAceptar.addActionListener(new java.awt.event.ActionListener() {

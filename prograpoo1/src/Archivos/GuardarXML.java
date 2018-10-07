@@ -37,6 +37,7 @@ import LogicaNegocios.Mantenimiento;
 import LogicaNegocios.Pasajero;
 import LogicaNegocios.Vehiculo;
 import LogicaNegocios.Viaje;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -47,7 +48,7 @@ public class GuardarXML {
     private Document document = null;
     private DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
     private String ruta;
-
+    private SimpleDateFormat formatoString = new SimpleDateFormat("dd/MM/yyyy");
 
     public GuardarXML(Vehiculo vehiculo) {
         this.ruta = "BaseDatos//Vehiculos//Vehiculo_" + vehiculo.getPlaca() + ".xml";
@@ -423,7 +424,7 @@ public class GuardarXML {
             Element atributo7 = document.createElement("Estado");
             
             
-
+            String fecha;
             //Ingresamos la info. El color de esta habitación es azul
             Text valoAtributo0 = document.createTextNode(viaje.getID());
             String msg="";
@@ -431,9 +432,10 @@ public class GuardarXML {
                 msg += viaje.getListaPasajeros().get(i).getCedula()+";";
             }
             Text valoAtributo1 = document.createTextNode(msg);
-            Text valoAtributo2 = document.createTextNode(viaje.getSolicitud().toString());
+            Text valoAtributo2 = document.createTextNode(formatoString.format(viaje.getSolicitud()));
             Text valoAtributo3 = document.createTextNode(viaje.getInicioDate().toString());
-            Text valoAtributo4 = document.createTextNode(viaje.getFinDate().toString());
+            
+            Text valoAtributo4 = document.createTextNode(viaje.getFinDate());
             Text valoAtributo5 = document.createTextNode(viaje.getVehiculo().getPlaca());
             Text valoAtributo6 = document.createTextNode(String.valueOf(viaje.getChofer().getCedula()));
             Text valoAtributo7 = document.createTextNode(viaje.getEstado());

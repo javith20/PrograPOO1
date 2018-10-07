@@ -14,6 +14,7 @@ import LogicaNegocios.Mantenimiento;
 import LogicaNegocios.Pasajero;
 import LogicaNegocios.Viaje;
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -30,8 +31,10 @@ public class AdministradorArchivos {
     private final File dirMantenimientos = new File("BaseDatos//Mantenimientos//");
     private final File dirEmpresas = new File("BaseDatos//Empresas//");
     private final File dirViajes = new File("BaseDatos//Viajes//");
+    
     private LectorXML lectorXML;
-
+    private SimpleDateFormat formatoString = new SimpleDateFormat("dd/MM/yyyy");
+    
     private ArrayList<Vehiculo> vehiculos = new ArrayList<>();
     private ArrayList<Pasajero> pasajeros = new ArrayList<>();
     private ArrayList<Direccion> Direcciones = new ArrayList<>();
@@ -109,7 +112,10 @@ public class AdministradorArchivos {
         ArrayList<String> aux;
         for (int indice = 0; dirViajes.list().length > indice; indice++) {
             aux = lectorXML.getListaElementos(dirViajes.getAbsolutePath() + "\\" + dirViajes.list()[indice], "Chofer");
+            
+            
             Viaje nuevo;
+            
             nuevo = new Viaje(aux.get(0),aux.get());
             aux.clear();
             viajes.add(nuevo);
