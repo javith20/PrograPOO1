@@ -36,6 +36,7 @@ import LogicaNegocios.Licencia;
 import LogicaNegocios.Mantenimiento;
 import LogicaNegocios.Pasajero;
 import LogicaNegocios.Vehiculo;
+import LogicaNegocios.Viaje;
 
 /**
  *
@@ -401,8 +402,8 @@ public class GuardarXML {
         }
     }
     
-    public GuardarXML(Empresa empresa) {
-        this.ruta = "BaseDatos//Empresas//Empresa_" + String.valueOf(empresa.getNumCedulaJuridica()) + ".xml";
+    public GuardarXML(Viaje viaje) {
+        this.ruta = "BaseDatos//Viajes//viaje_" + String.valueOf(viaje.getID()) + ".xml";
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
             DOMImplementation implementation = builder.getDOMImplementation();
@@ -424,11 +425,18 @@ public class GuardarXML {
             
 
             //Ingresamos la info. El color de esta habitación es azul
-            Text valoAtributo0 = document.createTextNode(empresa.getRazonSocial());
-            Text valoAtributo1 = document.createTextNode(String.valueOf(empresa.getNumCedulaJuridica()));
-            Text valoAtributo2 = document.createTextNode(String.valueOf(empresa.getTelefono()));
-            Text valoAtributo3 = document.createTextNode(empresa.getDireccion().getID());
-
+            Text valoAtributo0 = document.createTextNode(viaje.getID());
+            String msg="";
+            for( int i=0 ; i > viaje.getListaPasajeros().size() ;i++ ){
+                msg += viaje.getListaPasajeros().get(i).getCedula()+";";
+            }
+            Text valoAtributo1 = document.createTextNode(msg);
+            Text valoAtributo2 = document.createTextNode(viaje.getSolicitud().toString());
+            Text valoAtributo3 = document.createTextNode(viaje.getInicioDate().toString());
+            Text valoAtributo4 = document.createTextNode(viaje.getFinDate().toString());
+            Text valoAtributo5 = document.createTextNode(viaje.getVehiculo().getPlaca());
+            Text valoAtributo6 = document.createTextNode(String.valueOf(viaje.getChofer().getCedula()));
+            Text valoAtributo7 = document.createTextNode(viaje.getEstado());
 //Asignamos la versión de nuestro XML
             document.setXmlVersion("1.0");
             //Añadimos la casa al documento
@@ -438,12 +446,19 @@ public class GuardarXML {
             tipoObjeto.appendChild(atributo1);
             tipoObjeto.appendChild(atributo2);
             tipoObjeto.appendChild(atributo3);
-
+            tipoObjeto.appendChild(atributo4);
+            tipoObjeto.appendChild(atributo5);
+            tipoObjeto.appendChild(atributo6);
+            tipoObjeto.appendChild(atributo7);
             //Añadimos elemento
             atributo0.appendChild(valoAtributo0);
             atributo1.appendChild(valoAtributo1);
             atributo2.appendChild(valoAtributo2);
             atributo3.appendChild(valoAtributo3);
+            atributo4.appendChild(valoAtributo4);
+            atributo5.appendChild(valoAtributo5);
+            atributo6.appendChild(valoAtributo6);
+            atributo7.appendChild(valoAtributo7);
             this.guardaConFormato();
 
 //Añadimos valor
@@ -451,6 +466,7 @@ public class GuardarXML {
             System.err.println("Error: " + e);
         }
     }
+    
     private void guardaConFormato() {
         try {
             TransformerFactory transFact = TransformerFactory.newInstance();

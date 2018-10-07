@@ -24,7 +24,7 @@ import LogicaNegocios.Vehiculo;
 public final class InterfazViajes extends javax.swing.JFrame {
 
     public  static AdministradorArchivos administradorArchivos = new AdministradorArchivos();
-    private ArrayList<Viaje> ListaVehiculos = administradorArchivos.getViajes());
+    private ArrayList<Viaje> ListaVehiculos =  administradorArchivos.getViajes());
     private DefaultTableModel modelo;
 
     /**

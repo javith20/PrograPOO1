@@ -12,6 +12,7 @@ import LogicaNegocios.Empresa;
 import LogicaNegocios.Licencia;
 import LogicaNegocios.Mantenimiento;
 import LogicaNegocios.Pasajero;
+import LogicaNegocios.Viaje;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -28,6 +29,7 @@ public class AdministradorArchivos {
     private final File dirDirecciones = new File("BaseDatos//Direcciones//");
     private final File dirMantenimientos = new File("BaseDatos//Mantenimientos//");
     private final File dirEmpresas = new File("BaseDatos//Empresas//");
+    private final File dirViajes = new File("BaseDatos//Viajes//");
     private LectorXML lectorXML;
 
     private ArrayList<Vehiculo> vehiculos = new ArrayList<>();
@@ -37,6 +39,8 @@ public class AdministradorArchivos {
     private ArrayList<Chofer> choferes = new ArrayList<>();
     private ArrayList<Empresa> empresas = new ArrayList<>();
     private ArrayList<Mantenimiento> mantenimientos = new ArrayList<Mantenimiento>();
+    private ArrayList<Viaje> viajes = new ArrayList<>();
+    
     public AdministradorArchivos() {
         lectorXML = new LectorXML();
         cargarDirecciones();
@@ -101,6 +105,17 @@ public class AdministradorArchivos {
 
     }
     
+    private void cargarViajes() {
+        ArrayList<String> aux;
+        for (int indice = 0; dirViajes.list().length > indice; indice++) {
+            aux = lectorXML.getListaElementos(dirViajes.getAbsolutePath() + "\\" + dirViajes.list()[indice], "Chofer");
+            Viaje nuevo;
+            nuevo = new Viaje(aux.get(0),aux.get());
+            aux.clear();
+            viajes.add(nuevo);
+        }
+
+    }
  
     public ArrayList<Direccion> filtradoDireciones(int Criterio, String Busqueda) {
         ArrayList<Direccion> auxDireccion = new ArrayList<>();
@@ -245,7 +260,7 @@ public class AdministradorArchivos {
         return auxPasajero;
     }
 
-    
+
     public ArrayList<Vehiculo> getVehiculos() {
         return vehiculos;
     }

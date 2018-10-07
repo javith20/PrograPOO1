@@ -5,24 +5,17 @@
  */
 package Archivos;
 
-import Conexiones.Correo;
-import java.io.File;
-import Archivos.AdministradorArchivos;
+import java.text.DateFormat;
 
-/**
- *
- * @author Javith
- */
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class main {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-
-        AdministradorArchivos a = new AdministradorArchivos();
-        a.getPasajeros();
-
+    public static void main(String[] args) throws ParseException {
+        Date fecha = new Date();
+        Date date1=new SimpleDateFormat("dd/MM/yyyy").parse("20/03/1999");  
+        System.out.println(date1.toString());
     }
-
 }
