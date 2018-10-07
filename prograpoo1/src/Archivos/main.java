@@ -15,7 +15,12 @@ public class main {
 
     public static void main(String[] args) throws ParseException {
         Date fecha = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+         String fechaComoCadena = sdf.format(new Date());
+        
         Date date1=new SimpleDateFormat("dd/MM/yyyy").parse("20/03/1999");  
-        System.out.println(date1.toString());
+       
+        
+       
     }
 }
