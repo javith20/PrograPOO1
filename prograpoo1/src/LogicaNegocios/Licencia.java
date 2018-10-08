@@ -12,16 +12,22 @@ import java.util.Date;
  * @author Javith
  */
 public class Licencia {
+   
 
+    
     private final int numero;
     private final int tipo;
     private final String fechaEmision;
     private final String fechaExpiracion;
 
     public Licencia() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.numero = 0;
+        this.tipo = 0;
+        this.fechaEmision = "Error";
+        this.fechaExpiracion = "Error";
     }
-
+    
+    
     public int getNumero() {
         return numero;
     }

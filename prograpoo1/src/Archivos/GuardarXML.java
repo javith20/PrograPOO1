@@ -234,8 +234,8 @@ public class GuardarXML {
             //Ingresamos la info. El color de esta habitación es azul
             Text valoAtributo0 = document.createTextNode(String.valueOf(licencia.getNumero()));
             Text valoAtributo1 = document.createTextNode(String.valueOf(licencia.getTipo()));
-            Text valoAtributo2 = document.createTextNode(formatoString.format(licencia.getFechaEmision()));
-            Text valoAtributo3 = document.createTextNode(formatoString.format(licencia.getFechaExpiracion()));
+            Text valoAtributo2 = document.createTextNode(licencia.getFechaEmision());
+            Text valoAtributo3 = document.createTextNode(licencia.getFechaExpiracion());
 
             //Asignamos la versión de nuestro XML
             document.setXmlVersion("1.0");
@@ -421,6 +421,7 @@ public class GuardarXML {
             Element atributo5 = document.createElement("Vehiculo");
             Element atributo6 = document.createElement("Chofer");
             Element atributo7 = document.createElement("Estado");
+            Element atributo8 = document.createElement("Descripcion");
             
             
             String fecha;
@@ -442,6 +443,7 @@ public class GuardarXML {
              valoAtributo6 = document.createTextNode(String.valueOf(viaje.getChofer().getCedula()));
             }
             Text valoAtributo7 = document.createTextNode(viaje.getEstado());
+            Text valoAtributo8 = document.createTextNode(viaje.getDescripcionString());
 //Asignamos la versión de nuestro XML
             document.setXmlVersion("1.0");
             //Añadimos la casa al documento
@@ -455,6 +457,7 @@ public class GuardarXML {
             tipoObjeto.appendChild(atributo5);
             tipoObjeto.appendChild(atributo6);
             tipoObjeto.appendChild(atributo7);
+            tipoObjeto.appendChild(atributo8);
             //Añadimos elemento
             atributo0.appendChild(valoAtributo0);
             atributo1.appendChild(valoAtributo1);
@@ -464,6 +467,7 @@ public class GuardarXML {
             atributo5.appendChild(valoAtributo5);
             atributo6.appendChild(valoAtributo6);
             atributo7.appendChild(valoAtributo7);
+            atributo8.appendChild(valoAtributo8);
             this.guardaConFormato();
 
 //Añadimos valor

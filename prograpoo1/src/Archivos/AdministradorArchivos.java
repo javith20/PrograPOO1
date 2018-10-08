@@ -89,7 +89,7 @@ public class AdministradorArchivos {
             aux.clear();
             Direcciones.add(nuevo);
         }
-       
+
     }
 
     private void cargarLicencias() {
@@ -108,12 +108,14 @@ public class AdministradorArchivos {
         for (int indice = 0; dirChoferes.list().length > indice; indice++) {
             aux = lectorXML.getListaElementos(dirChoferes.getAbsolutePath() + "\\" + dirChoferes.list()[indice], "Chofer");
             ArrayList<Licencia> auxLicencias = new ArrayList<>();
+            
             String[] lista = aux.get(2).split(";");
-            for (int i = 0; lista.length - 2 == i; i++) {
+            
+            for (int i = 0; lista.length - 1 >= i; i++) {
                 auxLicencias.add(filtradoLicencias(lista[i]));
             }
             Chofer nuevo;
-            nuevo = new Chofer(Integer.parseInt(aux.get(0)), aux.get(1), auxLicencias, aux.get(3), Integer.parseInt(aux.get(4)));
+            nuevo = new Chofer(Integer.parseInt(aux.get(1)), aux.get(0), auxLicencias, aux.get(3), Integer.parseInt(aux.get(4)));
             aux.clear();
             choferes.add(nuevo);
         }
@@ -122,22 +124,20 @@ public class AdministradorArchivos {
 
     private void cargarViajes() {
         ArrayList<String> aux;
-        
+
         for (int indice = 0; dirViajes.list().length > indice; indice++) {
             aux = lectorXML.getListaElementos(dirViajes.getAbsolutePath() + "\\" + dirViajes.list()[indice], "Viaje");
             String[] listaStringPasajeros = aux.get(1).split(";");
             ArrayList<Pasajero> pasajerosViaje = new ArrayList<>();
-            for (int i = 0; listaStringPasajeros.length -1 >= i; i++) {
-                 
+            for (int i = 0; listaStringPasajeros.length - 1 >= i; i++) {
+
                 if (!(filtradoPasajero(1, listaStringPasajeros[i]).isEmpty())) {
                     pasajerosViaje.add(filtradoPasajero(1, listaStringPasajeros[i]).get(0));
-                   
+
                 }
 
             }
-           
-            
-            
+
             Date solicituDate = new Date();
             Date inicioDate = new Date();
             Date finDate = new Date();
@@ -147,17 +147,16 @@ public class AdministradorArchivos {
                 solicituDate = new SimpleDateFormat("dd/MM/yyyy").parse(aux.get(2));
                 inicioDate = new SimpleDateFormat("dd/MM/yyyy").parse(aux.get(3));
                 finDate = new SimpleDateFormat("dd/MM/yyyy").parse(aux.get(4));
-                if (!"En Confeccion".equals(aux.get(7))){
+                if (!"En Confeccion".equals(aux.get(7)) && !"Cancelado".equals(aux.get(7))) {
                     auxvehiculo = filtradoVehiculos(0, aux.get(5)).get(0);
                     auxChofer = filtradoChoferes(aux.get(6));
                 }
-                
-                
+
             } catch (ParseException e) {
             }
-            Viaje nuevo = new Viaje(aux.get(0), pasajerosViaje, solicituDate, inicioDate, finDate, auxvehiculo, auxChofer, aux.get(7));
+            Viaje nuevo = new Viaje(aux.get(0), pasajerosViaje, solicituDate, inicioDate, finDate, auxvehiculo, auxChofer, aux.get(7),aux.get(8));
             aux.clear();
-            
+
             viajes.add(nuevo);
         }
 
@@ -229,7 +228,7 @@ public class AdministradorArchivos {
     public Licencia filtradoLicencias(String Busqueda) {
         Licencia auxLicencias = new Licencia();
         for (int i = 0; Licencias.size() > i; i++) {
-            if (0 == Direcciones.get(i).getID().compareTo(Busqueda)) {
+            if (0 == String.valueOf(Licencias.get(i).getNumero()).compareTo(Busqueda)) {
                 auxLicencias = (Licencias.get(i));
             }
 
@@ -319,7 +318,7 @@ public class AdministradorArchivos {
                 case 3: {
                     try {
                         Date fechabuscada = new SimpleDateFormat("dd/MM/yyyy").parse(Busqueda);
-                        if (viajes.get(i).getInicioDate().equals(fechabuscada)){
+                        if (viajes.get(i).getInicioDate().equals(fechabuscada)) {
                             auxViajes.add(viajes.get(i));
                         }
                         break;

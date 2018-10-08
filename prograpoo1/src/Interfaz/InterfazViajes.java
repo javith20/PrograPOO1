@@ -178,6 +178,11 @@ public final class InterfazViajes extends javax.swing.JFrame {
         jMenu1.setText("Nuevo");
 
         mINuevoChofer.setText("Chofer");
+        mINuevoChofer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mINuevoChoferActionPerformed(evt);
+            }
+        });
         jMenu1.add(mINuevoChofer);
 
         mINuevoEmpresa.setText("Empresa");
@@ -342,6 +347,14 @@ public final class InterfazViajes extends javax.swing.JFrame {
             }
         });//    // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void mINuevoChoferActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mINuevoChoferActionPerformed
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new CrearChofer().setVisible(true);
+            }
+        });// 
+    }//GEN-LAST:event_mINuevoChoferActionPerformed
     
     
      public static void main(String args[]) {

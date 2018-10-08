@@ -24,8 +24,9 @@ public class Viaje {
     private Chofer chofer;
 
     private String estado;
+    private String DescripcionString;
 
-    public Viaje(String ID,ArrayList pasajeros ,Date Solicitud, Date inicioDate, Date finDate, Vehiculo vehiculo, Chofer chofer, String estado) {
+    public Viaje(String ID,ArrayList pasajeros ,Date Solicitud, Date inicioDate, Date finDate, Vehiculo vehiculo, Chofer chofer, String estado, String descripcion) {
         this.ID = ID;
         this.listaPasajeros = pasajeros;
         this.Solicitud = Solicitud;
@@ -34,11 +35,12 @@ public class Viaje {
         this.vehiculo = vehiculo;
         this.chofer = chofer;
         this.estado = estado;
+        this.DescripcionString = descripcion;
         cantSulicitudes++;
         
     }
     
-    public Viaje(ArrayList pasajeros ,Date Solicitud, Date inicioDate, Date finDate) {
+    public Viaje(ArrayList pasajeros ,Date Solicitud, Date inicioDate, Date finDate,String descripcion) {
         this.ID = "VIA-"+cantSulicitudes;
         this.listaPasajeros = pasajeros;
         this.Solicitud = Solicitud;
@@ -47,11 +49,16 @@ public class Viaje {
         this.vehiculo = null;
         this.chofer = null;
         this.estado = "En Confeccion";
+        this.DescripcionString = descripcion;
         cantSulicitudes++;
+    }
+
+    public String getDescripcionString() {
+        return DescripcionString;
     }
     
    
-
+    
     public String getID() {
         return ID;
         

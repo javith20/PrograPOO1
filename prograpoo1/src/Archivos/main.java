@@ -13,8 +13,8 @@ import java.util.Date;
 
 public class main {
 
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args) {
+       AdministradorArchivos a   =  new AdministradorArchivos();
         
-       
     }
 }
