@@ -35,6 +35,20 @@ public class Vehiculo {
         this.estado = estado;
         this.historialMantenimiento = new ArrayList<>();
     }
+
+    public Vehiculo() {
+        this.placa = "Sin definir";
+        this.agnoFabricacion = 0000;
+        this.color = "Sin definir";
+        this.marca = "Sin definir";
+        this.capacidad = 0;
+        this.kilometraje = 0000;
+        this.vin = "Sin definir";
+        this.sede = "Sin definir";
+        this.estado = "Sin definir";
+        this.historialMantenimiento = new ArrayList<>();
+    }
+        
    
 
     public String getPlaca() {

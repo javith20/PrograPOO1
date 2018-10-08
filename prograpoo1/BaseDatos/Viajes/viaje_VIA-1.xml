@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xml>
+   <Viaje>
+      <ID>VIA-1</ID>
+      <Pasajeros>17370445;</Pasajeros>
+      <Solicitud>07/10/2018</Solicitud>
+      <inicioDate>09/05/2012</inicioDate>
+      <finDate>03/05/2013</finDate>
+      <Vehiculo> </Vehiculo>
+      <Chofer> </Chofer>
+      <Estado>En Confeccion</Estado>
+   </Viaje>
+</xml>
+

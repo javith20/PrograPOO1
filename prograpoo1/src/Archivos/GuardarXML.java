@@ -127,14 +127,13 @@ public class GuardarXML {
             //creamos un nuevo elemento. Casa contiene habitaciones
             Element atributo0 = document.createElement("Nombre");
             Element atributo1 = document.createElement("Cedula");
-            Element atributo2 = document.createElement("Direccion");
             Element atributo3 = document.createElement("Correo");
             Element atributo4 = document.createElement("Telefono");
 
             //Ingresamos la info. El color de esta habitación es azul
             Text valoAtributo0 = document.createTextNode(pasajero.getNombre());
             Text valoAtributo1 = document.createTextNode(String.valueOf(pasajero.getCedula()));
-            Text valoAtributo2 = document.createTextNode(pasajero.getDireccion());
+            
             Text valoAtributo3 = document.createTextNode(pasajero.getCorreo());
             Text valoAtributo4 = document.createTextNode(String.valueOf(pasajero.getTelefono()));
 
@@ -145,14 +144,14 @@ public class GuardarXML {
             //Añadimos el elemento hijo a la raíz
             tipoObjeto.appendChild(atributo0);
             tipoObjeto.appendChild(atributo1);
-            tipoObjeto.appendChild(atributo2);
+           
             tipoObjeto.appendChild(atributo3);
             tipoObjeto.appendChild(atributo4);
 
             //Añadimos elemento
             atributo0.appendChild(valoAtributo0);
             atributo1.appendChild(valoAtributo1);
-            atributo2.appendChild(valoAtributo2);
+          
             atributo3.appendChild(valoAtributo3);
             atributo4.appendChild(valoAtributo4);
             this.guardaConFormato();
@@ -235,8 +234,8 @@ public class GuardarXML {
             //Ingresamos la info. El color de esta habitación es azul
             Text valoAtributo0 = document.createTextNode(String.valueOf(licencia.getNumero()));
             Text valoAtributo1 = document.createTextNode(String.valueOf(licencia.getTipo()));
-            Text valoAtributo2 = document.createTextNode(licencia.getFechaEmision().toString());
-            Text valoAtributo3 = document.createTextNode(licencia.getFechaExpiracion().toString());
+            Text valoAtributo2 = document.createTextNode(formatoString.format(licencia.getFechaEmision()));
+            Text valoAtributo3 = document.createTextNode(formatoString.format(licencia.getFechaExpiracion()));
 
             //Asignamos la versión de nuestro XML
             document.setXmlVersion("1.0");
@@ -326,8 +325,8 @@ public class GuardarXML {
 
             //Ingresamos la info. El color de esta habitación es azul
             Text valoAtributo0 = document.createTextNode(mantenimiento.getIdServicio());
-            Text valoAtributo1 = document.createTextNode(mantenimiento.getFechaInicio().toString());
-            Text valoAtributo2 = document.createTextNode(mantenimiento.getFechaFin().toString());
+            Text valoAtributo1 = document.createTextNode(formatoString.format(mantenimiento.getFechaInicio()));
+            Text valoAtributo2 = document.createTextNode(formatoString.format((mantenimiento.getFechaFin())));
             Text valoAtributo3 = document.createTextNode(String.valueOf(mantenimiento.getMontoPagado()));
             Text valoAtributo4 = document.createTextNode(mantenimiento.getDetalle());
             Text valoAtributo5 = document.createTextNode(String.valueOf(mantenimiento.getTipoServicio()));
@@ -428,16 +427,20 @@ public class GuardarXML {
             //Ingresamos la info. El color de esta habitación es azul
             Text valoAtributo0 = document.createTextNode(viaje.getID());
             String msg="";
-            for( int i=0 ; i > viaje.getListaPasajeros().size() ;i++ ){
+            System.err.println(viaje.getListaPasajeros());
+            for( int i=0 ; i < viaje.getListaPasajeros().size() ;i++ ){
                 msg += viaje.getListaPasajeros().get(i).getCedula()+";";
             }
             Text valoAtributo1 = document.createTextNode(msg);
             Text valoAtributo2 = document.createTextNode(formatoString.format(viaje.getSolicitud()));
-            Text valoAtributo3 = document.createTextNode(viaje.getInicioDate().toString());
-            
-            Text valoAtributo4 = document.createTextNode(viaje.getFinDate());
-            Text valoAtributo5 = document.createTextNode(viaje.getVehiculo().getPlaca());
-            Text valoAtributo6 = document.createTextNode(String.valueOf(viaje.getChofer().getCedula()));
+            Text valoAtributo3 = document.createTextNode(formatoString.format(viaje.getInicioDate()));           
+            Text valoAtributo4 = document.createTextNode(formatoString.format(viaje.getFinDate()));
+            Text valoAtributo5 = document.createTextNode(" ");
+            Text valoAtributo6 = document.createTextNode(" ");
+            if(!"En Confeccion".equals(viaje.getEstado())){
+             valoAtributo5 = document.createTextNode(viaje.getVehiculo().getPlaca());
+             valoAtributo6 = document.createTextNode(String.valueOf(viaje.getChofer().getCedula()));
+            }
             Text valoAtributo7 = document.createTextNode(viaje.getEstado());
 //Asignamos la versión de nuestro XML
             document.setXmlVersion("1.0");

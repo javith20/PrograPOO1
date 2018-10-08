@@ -11,14 +11,19 @@ package LogicaNegocios;
  * @author curso
  */
 public class Direccion {
-    static  int cantObj=0;
     private String ID;
-
-   
     private String provincia;
     private String canton;
     private String distrito;
     private String segnas;
+
+    public Direccion() {
+        this.provincia = "Error";
+        this.canton = "Error";
+        this.distrito = "Error";
+        this.segnas = "Error";
+        this.ID ="Error";
+    }
 
     public String getProvincia() {
         return provincia;
@@ -60,13 +65,13 @@ public class Direccion {
         return   (provincia+ ", " + canton + ", " + distrito + ", " + segnas );
     }
     
-    public Direccion(String provincia, String canton, String distrito, String segnas) {
+    public Direccion(String iD,String provincia, String canton, String distrito, String segnas) {
         this.provincia = provincia;
         this.canton = canton;
         this.distrito = distrito;
         this.segnas = segnas;
-        this.ID ="Dir"+cantObj;
-        cantObj++;
+        this.ID =iD;
+        
     }
     
 }

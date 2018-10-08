@@ -18,6 +18,10 @@ public class Licencia {
     private final String fechaEmision;
     private final String fechaExpiracion;
 
+    public Licencia() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public int getNumero() {
         return numero;
     }

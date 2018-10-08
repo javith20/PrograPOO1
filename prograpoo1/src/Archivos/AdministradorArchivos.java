@@ -14,8 +14,11 @@ import LogicaNegocios.Mantenimiento;
 import LogicaNegocios.Pasajero;
 import LogicaNegocios.Viaje;
 import java.io.File;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -31,10 +34,10 @@ public class AdministradorArchivos {
     private final File dirMantenimientos = new File("BaseDatos//Mantenimientos//");
     private final File dirEmpresas = new File("BaseDatos//Empresas//");
     private final File dirViajes = new File("BaseDatos//Viajes//");
-    
+
     private LectorXML lectorXML;
     private SimpleDateFormat formatoString = new SimpleDateFormat("dd/MM/yyyy");
-    
+
     private ArrayList<Vehiculo> vehiculos = new ArrayList<>();
     private ArrayList<Pasajero> pasajeros = new ArrayList<>();
     private ArrayList<Direccion> Direcciones = new ArrayList<>();
@@ -43,12 +46,16 @@ public class AdministradorArchivos {
     private ArrayList<Empresa> empresas = new ArrayList<>();
     private ArrayList<Mantenimiento> mantenimientos = new ArrayList<Mantenimiento>();
     private ArrayList<Viaje> viajes = new ArrayList<>();
-    
+
     public AdministradorArchivos() {
         lectorXML = new LectorXML();
+        cargarLicencias();
+        cargarChoferes();
         cargarDirecciones();
         cargarVehiculos();
         cargarPasajeros();
+        cargarViajes();
+
     }
 
     private void cargarVehiculos() {
@@ -67,22 +74,22 @@ public class AdministradorArchivos {
         for (int indice = 0; dirPasajeros.list().length > indice; indice++) {
             aux = lectorXML.getListaElementos(dirPasajeros.getAbsolutePath() + "\\" + dirPasajeros.list()[indice], "Pasajero");
             Pasajero nuevo;
-            nuevo = new Pasajero(aux.get(0), Integer.parseInt(aux.get(1)), aux.get(2), aux.get(3), Integer.parseInt(aux.get(4)));
+            nuevo = new Pasajero(aux.get(0), Integer.parseInt(aux.get(1)), filtradoDireciones(aux.get(1)), aux.get(2), Integer.parseInt(aux.get(3)));
             aux.clear();
             pasajeros.add(nuevo);
         }
     }
-    
+
     private void cargarDirecciones() {
         ArrayList<String> aux;
         for (int indice = 0; dirDirecciones.list().length > indice; indice++) {
             aux = lectorXML.getListaElementos(dirDirecciones.getAbsolutePath() + "\\" + dirDirecciones.list()[indice], "Direccion");
             Direccion nuevo;
-            System.out.print(aux);
-            nuevo = new Direccion(aux.get(0), aux.get(1), aux.get(2), aux.get(3));
+            nuevo = new Direccion(aux.get(0), aux.get(1), aux.get(2), aux.get(3), aux.get(4));
             aux.clear();
             Direcciones.add(nuevo);
         }
+       
     }
 
     private void cargarLicencias() {
@@ -100,65 +107,69 @@ public class AdministradorArchivos {
         ArrayList<String> aux;
         for (int indice = 0; dirChoferes.list().length > indice; indice++) {
             aux = lectorXML.getListaElementos(dirChoferes.getAbsolutePath() + "\\" + dirChoferes.list()[indice], "Chofer");
+            ArrayList<Licencia> auxLicencias = new ArrayList<>();
+            String[] lista = aux.get(2).split(";");
+            for (int i = 0; lista.length - 2 == i; i++) {
+                auxLicencias.add(filtradoLicencias(lista[i]));
+            }
             Chofer nuevo;
-            nuevo = new Chofer(Integer.parseInt(aux.get(0)),aux.get(1),filtradoLicencias(aux.get(2)),aux.get(3),Integer.parseInt(aux.get(4)));
+            nuevo = new Chofer(Integer.parseInt(aux.get(0)), aux.get(1), auxLicencias, aux.get(3), Integer.parseInt(aux.get(4)));
             aux.clear();
             choferes.add(nuevo);
         }
 
     }
-    
+
     private void cargarViajes() {
         ArrayList<String> aux;
+        
         for (int indice = 0; dirViajes.list().length > indice; indice++) {
-            aux = lectorXML.getListaElementos(dirViajes.getAbsolutePath() + "\\" + dirViajes.list()[indice], "Chofer");
+            aux = lectorXML.getListaElementos(dirViajes.getAbsolutePath() + "\\" + dirViajes.list()[indice], "Viaje");
+            String[] listaStringPasajeros = aux.get(1).split(";");
+            ArrayList<Pasajero> pasajerosViaje = new ArrayList<>();
+            for (int i = 0; listaStringPasajeros.length -1 >= i; i++) {
+                 
+                if (!(filtradoPasajero(1, listaStringPasajeros[i]).isEmpty())) {
+                    pasajerosViaje.add(filtradoPasajero(1, listaStringPasajeros[i]).get(0));
+                   
+                }
+
+            }
+           
             
             
-            Viaje nuevo;
-            
-            nuevo = new Viaje(aux.get(0),aux.get());
+            Date solicituDate = new Date();
+            Date inicioDate = new Date();
+            Date finDate = new Date();
+            Vehiculo auxvehiculo = new Vehiculo();
+            Chofer auxChofer = new Chofer();
+            try {
+                solicituDate = new SimpleDateFormat("dd/MM/yyyy").parse(aux.get(2));
+                inicioDate = new SimpleDateFormat("dd/MM/yyyy").parse(aux.get(3));
+                finDate = new SimpleDateFormat("dd/MM/yyyy").parse(aux.get(4));
+                if (!"En Confeccion".equals(aux.get(7))){
+                    auxvehiculo = filtradoVehiculos(0, aux.get(5)).get(0);
+                    auxChofer = filtradoChoferes(aux.get(6));
+                }
+                
+                
+            } catch (ParseException e) {
+            }
+            Viaje nuevo = new Viaje(aux.get(0), pasajerosViaje, solicituDate, inicioDate, finDate, auxvehiculo, auxChofer, aux.get(7));
             aux.clear();
+            
             viajes.add(nuevo);
         }
 
     }
- 
-    public ArrayList<Direccion> filtradoDireciones(int Criterio, String Busqueda) {
-        ArrayList<Direccion> auxDireccion = new ArrayList<>();
-        for (int i = 0; Direcciones.size() > i; i++) {
-            switch (Criterio) {
-                case 0: {
-                    if (0 == Direcciones.get(i).getID().compareTo(Busqueda)) {
-                        auxDireccion.add(Direcciones.get(i));
-                    }
-                    break;
-                }
-                case 1: {
-                    if (0 == Direcciones.get(i).getProvincia().compareTo(Busqueda)) {
-                        auxDireccion.add(Direcciones.get(i));
-                    }
-                    break;
-                }
-                case 2: {
-                    if (0 == Direcciones.get(i).getCanton().compareTo(Busqueda)) {
-                        auxDireccion.add(Direcciones.get(i));
-                    }
-                    break;
-                }
-                case 3: {
-                    if (0 == Direcciones.get(i).getDistrito().compareTo(Busqueda)) {
-                        auxDireccion.add(Direcciones.get(i));
-                    }
-                    break;
-                }
-                case 4: {
-                    if (0 == Direcciones.get(i).getSegnas().compareTo(Busqueda)) {
-                        auxDireccion.add(Direcciones.get(i));
-                    }
-                    break;
-                }
-            }
 
+    public Direccion filtradoDireciones(String Busqueda) {
+        System.out.println(Busqueda);
+        Direccion auxDireccion = new Direccion();
+        for (int i = 0; Direcciones.size() > i; i++) {
+            if (0 == Direcciones.get(i).getID().compareTo(Busqueda)) {
+                auxDireccion = Direcciones.get(i);
+            }
         }
         return auxDireccion;
     }
@@ -215,17 +226,17 @@ public class AdministradorArchivos {
         return auxVehiculos;
     }
 
-    public ArrayList<Licencia> filtradoLicencias(String Busqueda) {
-        ArrayList<Licencia> auxLicencias = new ArrayList<>();
+    public Licencia filtradoLicencias(String Busqueda) {
+        Licencia auxLicencias = new Licencia();
         for (int i = 0; Licencias.size() > i; i++) {
             if (0 == Direcciones.get(i).getID().compareTo(Busqueda)) {
-                auxLicencias.add(Licencias.get(i));
+                auxLicencias = (Licencias.get(i));
             }
 
         }
         return auxLicencias;
     }
-    
+
     public ArrayList<Pasajero> filtradoPasajero(int Criterio, String Busqueda) {
         ArrayList<Pasajero> auxPasajero = new ArrayList<>();
         for (int i = 0; pasajeros.size() > i; i++) {
@@ -242,19 +253,14 @@ public class AdministradorArchivos {
                     }
                     break;
                 }
+
                 case 2: {
-                    if (0 == pasajeros.get(i).getDireccion().compareTo(Busqueda)) {
-                        auxPasajero.add(pasajeros.get(i));
-                    }
-                    break;
-                }
-                case 3: {
                     if (0 == pasajeros.get(i).getCorreo().compareTo(Busqueda)) {
                         auxPasajero.add(pasajeros.get(i));
                     }
                     break;
                 }
-                case 4: {
+                case 3: {
                     if (0 == String.valueOf(pasajeros.get(i).getTelefono()).compareTo(Busqueda)) {
                         auxPasajero.add(pasajeros.get(i));
                     }
@@ -266,6 +272,116 @@ public class AdministradorArchivos {
         return auxPasajero;
     }
 
+    public Chofer filtradoChoferes(String Busqueda) {
+        Chofer auxChofer = new Chofer();
+        for (int i = 0; choferes.size() > i; i++) {
+            if (0 == Direcciones.get(i).getID().compareTo(Busqueda)) {
+                auxChofer = (choferes.get(i));
+            }
+
+        }
+        return auxChofer;
+    }
+
+    public ArrayList<Viaje> filtradoViajes(int Criterio, String Busqueda) {
+        ArrayList<Viaje> auxViajes = new ArrayList<>();
+        for (int i = 0; viajes.size() > i; i++) {
+            switch (Criterio) {
+                case 0: {
+                    if (viajes.get(i).getID().equals(Busqueda)) {
+                        auxViajes.add(viajes.get(i));
+                    }
+                    break;
+                }
+                case 1: {
+                    ArrayList<Pasajero> auxpasajeros = new ArrayList<>();
+                    for (int indice = 0; viajes.get(i).getListaPasajeros().size() > i; i++) {
+                        if (String.valueOf(viajes.get(i).getListaPasajeros().get(i).getCedula()).equals(Busqueda)) {
+                            auxpasajeros.add(viajes.get(i).getListaPasajeros().get(indice));
+                        }
+                    }
+                    if (!auxpasajeros.isEmpty()) {
+                        auxViajes.add(viajes.get(i));
+                    }
+                    break;
+                }
+                case 2: {
+                    try {
+                        Date fechabuscada = new SimpleDateFormat("dd/MM/yyyy").parse(Busqueda);
+                        if ((viajes.get(i).getSolicitud().equals(fechabuscada))) {
+                            auxViajes.add(viajes.get(i));
+                        }
+                        break;
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, "Error de Formato de la fecha");
+                    }
+                }
+                case 3: {
+                    try {
+                        Date fechabuscada = new SimpleDateFormat("dd/MM/yyyy").parse(Busqueda);
+                        if (viajes.get(i).getInicioDate().equals(fechabuscada)){
+                            auxViajes.add(viajes.get(i));
+                        }
+                        break;
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, "Error de Formato de la fecha");
+                    }
+                }
+                case 4: {
+                    try {
+                        Date fechabuscada = new SimpleDateFormat("dd/MM/yyyy").parse(Busqueda);
+                        if ((viajes.get(i).getFinDate()).equals(fechabuscada)) {
+                            auxViajes.add(viajes.get(i));
+                        }
+                        break;
+                    } catch (ParseException e) {
+                        JOptionPane.showMessageDialog(null, "Error de Formato de la fecha");
+                    }
+                }
+                case 5: {
+                    if (String.valueOf(viajes.get(i).getChofer().getCedula()).equals(Busqueda)) {
+                        auxViajes.add(viajes.get(i));
+                    }
+                    break;
+                }
+                case 6: {
+                    if (String.valueOf(viajes.get(i).getVehiculo().getPlaca()).equalsIgnoreCase(Busqueda)) {
+                        auxViajes.add(viajes.get(i));
+                    }
+                    break;
+                }
+                case 7: {
+                    if (0 == viajes.get(i).getEstado().compareTo(Busqueda)) {
+                        auxViajes.add(viajes.get(i));
+                    }
+                    break;
+                }
+
+            }
+
+        }
+        return auxViajes;
+    }
+
+    public ArrayList<Direccion> getDirecciones() {
+        return Direcciones;
+    }
+
+    public ArrayList<Licencia> getLicencias() {
+        return Licencias;
+    }
+
+    public ArrayList<Chofer> getChoferes() {
+        return choferes;
+    }
+
+    public ArrayList<Empresa> getEmpresas() {
+        return empresas;
+    }
+
+    public ArrayList<Mantenimiento> getMantenimientos() {
+        return mantenimientos;
+    }
 
     public ArrayList<Vehiculo> getVehiculos() {
         return vehiculos;
@@ -275,36 +391,8 @@ public class AdministradorArchivos {
         return pasajeros;
     }
 
-    public ArrayList<String> getFicherosLicencias() {
-        ArrayList<String> lista = new ArrayList<>();
-        for (int indice = 0; dirVehiculos.list().length > indice; indice++) {
-            lista.add("BaseDatos//Vehiculos//" + dirVehiculos.list()[1]);
-        }
-        return lista;
-    }
-
-    public ArrayList<String> getFicherosDirecciones() {
-        ArrayList<String> lista = new ArrayList<>();
-        for (int indice = 0; dirVehiculos.list().length > indice; indice++) {
-            lista.add("BaseDatos//Vehiculos//" + dirVehiculos.list()[1]);
-        }
-        return lista;
-    }
-
-    public ArrayList<String> getFicherosMantenimientos() {
-        ArrayList<String> lista = new ArrayList<>();
-        for (int indice = 0; dirVehiculos.list().length > indice; indice++) {
-            lista.add("BaseDatos//Vehiculos//" + dirVehiculos.list()[1]);
-        }
-        return lista;
-    }
-
-    public ArrayList<String> getFicherosEmpresas() {
-        ArrayList<String> lista = new ArrayList<>();
-        for (int indice = 0; dirVehiculos.list().length > indice; indice++) {
-            lista.add("BaseDatos//Vehiculos//" + dirVehiculos.list()[1]);
-        }
-        return lista;
+    public ArrayList<Viaje> getViajes() {
+        return viajes;
     }
 
 }

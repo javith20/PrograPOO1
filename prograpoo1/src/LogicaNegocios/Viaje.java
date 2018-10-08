@@ -15,7 +15,7 @@ import java.util.Date;
 public class Viaje {
     private static int cantSulicitudes=0;
     private String ID;
-    private ArrayList<Pasajero> listaPasajeros = new ArrayList<>();
+    private ArrayList<Pasajero> listaPasajeros ;
     
     private Date Solicitud;
     private Date inicioDate;
@@ -23,8 +23,11 @@ public class Viaje {
     private Vehiculo vehiculo;
     private Chofer chofer;
 
-    public Viaje(String ID, Date Solicitud, Date inicioDate, Date finDate, Vehiculo vehiculo, Chofer chofer, String estado) {
+    private String estado;
+
+    public Viaje(String ID,ArrayList pasajeros ,Date Solicitud, Date inicioDate, Date finDate, Vehiculo vehiculo, Chofer chofer, String estado) {
         this.ID = ID;
+        this.listaPasajeros = pasajeros;
         this.Solicitud = Solicitud;
         this.inicioDate = inicioDate;
         this.finDate = finDate;
@@ -32,10 +35,21 @@ public class Viaje {
         this.chofer = chofer;
         this.estado = estado;
         cantSulicitudes++;
-        this.ID = "VIA-"+cantSulicitudes;
+        
     }
-    private String estado;
-
+    
+    public Viaje(ArrayList pasajeros ,Date Solicitud, Date inicioDate, Date finDate) {
+        this.ID = "VIA-"+cantSulicitudes;
+        this.listaPasajeros = pasajeros;
+        this.Solicitud = Solicitud;
+        this.inicioDate = inicioDate;
+        this.finDate = finDate;
+        this.vehiculo = null;
+        this.chofer = null;
+        this.estado = "En Confeccion";
+        cantSulicitudes++;
+    }
+    
    
 
     public String getID() {

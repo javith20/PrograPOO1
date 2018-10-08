@@ -6,6 +6,7 @@
 package Interfaz;
 
 import Archivos.AdministradorArchivos;
+import Archivos.GuardarXML;
 import Archivos.LectorXML;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -14,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import org.xml.sax.SAXException;
 import LogicaNegocios.Pasajero;
 import LogicaNegocios.Vehiculo;
+import LogicaNegocios.Viaje;
 
 /**
  *
@@ -26,6 +28,14 @@ public final class MostrarDatos extends javax.swing.JFrame {
      */
     public MostrarDatos(Vehiculo vehiculo) {
         initComponents();
+        CargarComponentes(vehiculo);
+    }   
+    public MostrarDatos(Pasajero pasajero) {
+        initComponents();
+       CargarComponentes(pasajero);
+    } 
+    
+    private void CargarComponentes(Vehiculo vehiculo){
         
         this.labeltTtulo.setText("Vehiculo: ");
         this.txtRespuesta0.setText(vehiculo.getPlaca());
@@ -60,34 +70,36 @@ public final class MostrarDatos extends javax.swing.JFrame {
             if (vehiculo.getEstado().equals(comboRespuesta8.getItemAt(i)))
                 this.comboRespuesta8.setSelectedIndex(i);
          this.comboRespuesta8.setEnabled(false);
-    }   
-    public MostrarDatos(Pasajero pasajero) {
-        initComponents();
+    
+    }
+    private void CargarComponentes(Pasajero pasajero){
+        
         
         this.labeltTtulo.setText("Pasajero: ");
         this.txtRespuesta0.setText(pasajero.getNombre());
+        this.txtRespuesta0.setEditable(false);
         this.labelatrib1.setText("Cedula: ");
         this.txtRespuesta1.setText(String.valueOf(pasajero.getCedula()));
+        this.txtRespuesta1.setEditable(false);
         this.labelatrib2.setText("Direccion: ");
         this.txtRespuesta2.setText(pasajero.getDireccion().toString());
+        this.txtRespuesta2.setEditable(false);
         this.labelatrib3.setText("Correo: ");
         this.txtRespuesta3.setText(pasajero.getCorreo());
+        this.txtRespuesta3.setEditable(false);
         this.labelatrib4.setText("Telefono");
         this.txtRespuesta4.setText(String.valueOf(pasajero.getTelefono()));
-        this.labelatrib5.disable();
-        this.txtRespuesta5.disable();
-        this.labelatrib6.disable();
-        this.txtRespuesta6.disable();
-        this.labelatrib7.disable();
-        this.txtRespuesta7.disable();
-         this.labelatrib8.disable();
-        this.comboRespuesta8.disable();
-    }   
-    private void CargarComponentes(){
-        
-    
+        this.txtRespuesta4.setEditable(false);
+        this.labelatrib5.setVisible(false);
+        this.txtRespuesta5.setVisible(false);
+        this.labelatrib6.setVisible(false);
+        this.txtRespuesta6.setVisible(false);
+        this.labelatrib7.setVisible(false);
+        this.txtRespuesta7.setVisible(false);
+         this.labelatrib8.setVisible(false);
+        this.comboRespuesta8.setVisible(false);
+        this.btnEditar.setVisible(false);
     }
-    
    
     
     /**
@@ -119,21 +131,10 @@ public final class MostrarDatos extends javax.swing.JFrame {
         txtRespuesta6 = new javax.swing.JTextField();
         txtRespuesta7 = new javax.swing.JTextField();
         comboRespuesta8 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         btnAceptar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        barraMenu = new javax.swing.JMenuBar();
-        subMenuArchivo = new javax.swing.JMenu();
-        itemUsuario = new javax.swing.JMenuItem();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jMenu1 = new javax.swing.JMenu();
-        mINuevoChofer = new javax.swing.JMenuItem();
-        mINuevoEmpresa = new javax.swing.JMenuItem();
-        mINuevoPasajero = new javax.swing.JMenuItem();
-        mINuevoVehiculo = new javax.swing.JMenuItem();
-        itemSalir = new javax.swing.JMenuItem();
-        subMenuEditar = new javax.swing.JMenu();
+        btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 51, 51));
@@ -229,10 +230,10 @@ public final class MostrarDatos extends javax.swing.JFrame {
 
         comboRespuesta8.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButton1.setText("Editar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnEditarActionPerformed(evt);
             }
         });
 
@@ -248,43 +249,43 @@ public final class MostrarDatos extends javax.swing.JFrame {
                             .addGroup(panelDatosLayout.createSequentialGroup()
                                 .addComponent(labeltTtulo, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtRespuesta0, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtRespuesta0))
                             .addGroup(panelDatosLayout.createSequentialGroup()
                                 .addComponent(labelatrib1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtRespuesta1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtRespuesta1))
                             .addGroup(panelDatosLayout.createSequentialGroup()
                                 .addComponent(labelatrib2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtRespuesta2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtRespuesta2))
                             .addGroup(panelDatosLayout.createSequentialGroup()
                                 .addComponent(labelatrib3, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtRespuesta3, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtRespuesta3))
                             .addGroup(panelDatosLayout.createSequentialGroup()
                                 .addComponent(labelatrib4, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtRespuesta4, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtRespuesta4))
                             .addGroup(panelDatosLayout.createSequentialGroup()
                                 .addComponent(labelatrib5, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtRespuesta6, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtRespuesta6))
                             .addGroup(panelDatosLayout.createSequentialGroup()
                                 .addComponent(labelatrib6, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtRespuesta7, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtRespuesta7))
                             .addGroup(panelDatosLayout.createSequentialGroup()
                                 .addComponent(labelatrib7, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtRespuesta5, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtRespuesta5))
                             .addGroup(panelDatosLayout.createSequentialGroup()
                                 .addComponent(labelatrib8, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comboRespuesta8, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(comboRespuesta8, 0, 335, Short.MAX_VALUE))))
                     .addGroup(panelDatosLayout.createSequentialGroup()
                         .addGap(165, 165, 165)
-                        .addComponent(jButton1)))
-                .addContainerGap(166, Short.MAX_VALUE))
+                        .addComponent(btnEditar)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelDatosLayout.createSequentialGroup()
                     .addContainerGap()
@@ -300,7 +301,6 @@ public final class MostrarDatos extends javax.swing.JFrame {
                     .addGroup(panelDatosLayout.createSequentialGroup()
                         .addComponent(txtRespuesta0)
                         .addGap(3, 3, 3)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelatrib1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtRespuesta1))
@@ -319,7 +319,7 @@ public final class MostrarDatos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelatrib5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtRespuesta6))
+                    .addComponent(txtRespuesta6, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelatrib6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -332,8 +332,8 @@ public final class MostrarDatos extends javax.swing.JFrame {
                 .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelatrib8, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboRespuesta8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addComponent(btnEditar)
                 .addContainerGap())
             .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelDatosLayout.createSequentialGroup()
@@ -346,63 +346,26 @@ public final class MostrarDatos extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 151, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 464, Short.MAX_VALUE)
+            .addGap(0, 470, Short.MAX_VALUE)
         );
 
         btnAceptar.setText("Aceptar");
-
-        jButton2.setText("jButton2");
-
-        subMenuArchivo.setText("Archivo");
-
-        itemUsuario.setText("Usuario");
-        subMenuArchivo.add(itemUsuario);
-        subMenuArchivo.add(jSeparator1);
-
-        jMenu1.setText("Nuevo");
-
-        mINuevoChofer.setText("Chofer");
-        jMenu1.add(mINuevoChofer);
-
-        mINuevoEmpresa.setText("Empresa");
-        jMenu1.add(mINuevoEmpresa);
-
-        mINuevoPasajero.setText("Pasajero");
-        mINuevoPasajero.addActionListener(new java.awt.event.ActionListener() {
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mINuevoPasajeroActionPerformed(evt);
+                btnAceptarActionPerformed(evt);
             }
         });
-        jMenu1.add(mINuevoPasajero);
 
-        mINuevoVehiculo.setText("Vehiculo");
-        mINuevoVehiculo.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mINuevoVehiculoActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
-        jMenu1.add(mINuevoVehiculo);
-
-        subMenuArchivo.add(jMenu1);
-
-        itemSalir.setText("Salir");
-        itemSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemSalirActionPerformed(evt);
-            }
-        });
-        subMenuArchivo.add(itemSalir);
-
-        barraMenu.add(subMenuArchivo);
-
-        subMenuEditar.setText("Editar");
-        barraMenu.add(subMenuEditar);
-
-        setJMenuBar(barraMenu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -414,44 +377,27 @@ public final class MostrarDatos extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(panelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
+                        .addGap(50, 50, 50)
                         .addComponent(btnAceptar)
-                        .addGap(56, 56, 56)
-                        .addComponent(jButton2)))
+                        .addGap(69, 69, 69)
+                        .addComponent(btnCancelar)))
                 .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAceptar)
-                    .addComponent(jButton2))
+                    .addComponent(btnCancelar))
                 .addGap(22, 22, 22))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void itemSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSalirActionPerformed
-     
-    }//GEN-LAST:event_itemSalirActionPerformed
-
-    private void mINuevoPasajeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mINuevoPasajeroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mINuevoPasajeroActionPerformed
-
-    private void mINuevoVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mINuevoVehiculoActionPerformed
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Crear().setVisible(true);
-            }
-        });
-    }//GEN-LAST:event_mINuevoVehiculoActionPerformed
 
     private void txtRespuesta0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRespuesta0ActionPerformed
         // TODO add your handling code here:
@@ -485,7 +431,7 @@ public final class MostrarDatos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtRespuesta7ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
     this.txtRespuesta0.setEnabled(true);
     this.txtRespuesta1.setEnabled(true);
     this.txtRespuesta2.setEnabled(true);
@@ -495,7 +441,24 @@ public final class MostrarDatos extends javax.swing.JFrame {
     this.txtRespuesta6.setEnabled(true);
     this.txtRespuesta7.setEnabled(true);
     this.comboRespuesta8.setEnabled(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        try {
+            if(this.btnEditar.isEnabled()){
+            Vehiculo nuevo = new Vehiculo(this.txtRespuesta0.getText(), this.txtRespuesta1.getText(), this.txtRespuesta2.getText(),Integer.parseInt((this.txtRespuesta3.getText())), Integer.parseInt(this.txtRespuesta4.getText()), Double.valueOf(this.txtRespuesta5.getText()), this.txtRespuesta6.getText(), this.txtRespuesta7.getText(), this.comboRespuesta8.getItemAt(comboRespuesta8.getSelectedIndex()));
+            GuardarXML garda =new GuardarXML(nuevo);
+        }  
+        } catch (Exception e) {
+        }
+        
+        this.dispose();
+// TODO add your handling code here:
+    }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+    this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -503,16 +466,11 @@ public final class MostrarDatos extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuBar barraMenu;
     private javax.swing.JButton btnAceptar;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnEditar;
     private javax.swing.JComboBox<String> comboRespuesta8;
-    private javax.swing.JMenuItem itemSalir;
-    private javax.swing.JMenuItem itemUsuario;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel labelatrib1;
     private javax.swing.JLabel labelatrib2;
     private javax.swing.JLabel labelatrib3;
@@ -523,13 +481,7 @@ public final class MostrarDatos extends javax.swing.JFrame {
     private javax.swing.JLabel labelatrib8;
     private javax.swing.JLabel labeltTtulo;
     private javax.swing.JLabel labeltTtulo1;
-    private javax.swing.JMenuItem mINuevoChofer;
-    private javax.swing.JMenuItem mINuevoEmpresa;
-    private javax.swing.JMenuItem mINuevoPasajero;
-    private javax.swing.JMenuItem mINuevoVehiculo;
     private javax.swing.JPanel panelDatos;
-    private javax.swing.JMenu subMenuArchivo;
-    private javax.swing.JMenu subMenuEditar;
     private javax.swing.JTextField txtRespuesta0;
     private javax.swing.JTextField txtRespuesta1;
     private javax.swing.JTextField txtRespuesta2;

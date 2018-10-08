@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xml>
+   <Vehiculo>
+      <Placa>GGG-2018</Placa>
+      <Color>Blanco</Color>
+      <Marca>Hyundai</Marca>
+      <AgnoFabricacion>2018</AgnoFabricacion>
+      <Capacidad>5</Capacidad>
+      <Kilometraje>3500.0</Kilometraje>
+      <Vin>2122112</Vin>
+      <Sede>Cartago</Sede>
+      <Estado>Mantenimiento</Estado>
+   </Vehiculo>
+</xml>
+

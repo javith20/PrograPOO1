@@ -10,7 +10,15 @@ public class Chofer{
   private ArrayList<Licencia> listaLicencias;
   private String correo;
   private int telefono;
-
+    
+  
+    public Chofer() {
+        this.cedula = 1;
+        this.nombre = "Sin Definir";
+        this.correo = "Sin Definir";
+        this.telefono = 12345678;
+    }
+  
     public Chofer(int cedula, String nombre, ArrayList<Licencia> listaLicencias, String correo, int telefono) {
         this.cedula = cedula;
         this.nombre = nombre;

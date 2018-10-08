@@ -16,15 +16,17 @@ import javax.swing.table.DefaultTableModel;
 import org.xml.sax.SAXException;
 
 import LogicaNegocios.Vehiculo;
+import java.awt.Menu;
+import java.text.SimpleDateFormat;
 
 /**
  *
  * @author Javith
  */
 public final class InterfazViajes extends javax.swing.JFrame {
-
+     private SimpleDateFormat formatoString = new SimpleDateFormat("dd/MM/yyyy");
     public  static AdministradorArchivos administradorArchivos = new AdministradorArchivos();
-    private ArrayList<Viaje> ListaVehiculos =  administradorArchivos.getViajes());
+    private ArrayList<Viaje> listaViajes =  administradorArchivos.getViajes();
     private DefaultTableModel modelo;
 
     /**
@@ -41,36 +43,40 @@ public final class InterfazViajes extends javax.swing.JFrame {
     private void CargarComponentes() {
         this.comboFiltrado.removeAllItems();
         this.comboFiltrado.addItem("ID");
+        this.comboFiltrado.addItem("Pasajero");
         this.comboFiltrado.addItem("Fecha Solicitud");
         this.comboFiltrado.addItem("Fecha Inicio");
+        this.comboFiltrado.addItem("Fecha Fin");
         this.comboFiltrado.addItem("Placa Vehiculo");
         this.comboFiltrado.addItem("Chofer");
         this.comboFiltrado.addItem("Estado");
-        insertarEnlista(this.ListaVehiculos);
+        
+        insertarEnlista(this.listaViajes);
     }
 
     private void insertarEnlista(ArrayList<Viaje> lista) {
+        
         Clear();
-        modelo = (DefaultTableModel) TableVehiculos.getModel();
+        modelo = (DefaultTableModel) TableViajes.getModel();
 
-        Object[] fila = new Object[5];
+        Object[] fila = new Object[7];
 
         for (int indice = 0; lista.size() > indice; indice++) {
-
+           
             fila[0] = lista.get(indice).getID();
             fila[1] = lista.get(indice).getChofer().getNombre();
             fila[2] = lista.get(indice).getVehiculo().getPlaca();
             fila[3] = lista.get(indice).getEstado();
-            fila[4] = lista.get(indice).getSolicitud();
-            fila[5] = lista.get(indice).getInicioDate();
-            fila[6] = lista.get(indice).getFinDate();
+            fila[4] = formatoString.format(lista.get(indice).getSolicitud());
+            fila[5] = formatoString.format(lista.get(indice).getInicioDate());
+            fila[6] = formatoString.format(lista.get(indice).getFinDate());
             modelo.addRow(fila);
         }
 
     }
 
     private void Clear() {
-        for (int i = 0; i < TableVehiculos.getRowCount(); i++) {
+        for (int i = 0; i < TableViajes.getRowCount(); i++) {
             modelo.removeRow(i);
             i -= 1;
         }
@@ -86,7 +92,7 @@ public final class InterfazViajes extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        TableVehiculos = new javax.swing.JTable();
+        TableViajes = new javax.swing.JTable();
         txtBuscado = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         comboFiltrado = new javax.swing.JComboBox<>();
@@ -99,6 +105,9 @@ public final class InterfazViajes extends javax.swing.JFrame {
         mINuevoEmpresa = new javax.swing.JMenuItem();
         mINuevoPasajero = new javax.swing.JMenuItem();
         mINuevoVehiculo = new javax.swing.JMenuItem();
+        mINuevoSolicitudViaje = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         itemSalir = new javax.swing.JMenuItem();
         subMenuEditar = new javax.swing.JMenu();
 
@@ -111,7 +120,7 @@ public final class InterfazViajes extends javax.swing.JFrame {
             }
         });
 
-        TableVehiculos.setModel(new javax.swing.table.DefaultTableModel(
+        TableViajes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -127,12 +136,12 @@ public final class InterfazViajes extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        TableVehiculos.addMouseListener(new java.awt.event.MouseAdapter() {
+        TableViajes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TableVehiculosMouseClicked(evt);
+                TableViajesMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(TableVehiculos);
+        jScrollPane1.setViewportView(TableViajes);
 
         txtBuscado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -146,7 +155,7 @@ public final class InterfazViajes extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("Vehiculos");
+        jLabel1.setText("Viajes");
 
         comboFiltrado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboFiltrado.addActionListener(new java.awt.event.ActionListener() {
@@ -190,7 +199,27 @@ public final class InterfazViajes extends javax.swing.JFrame {
         });
         jMenu1.add(mINuevoVehiculo);
 
+        mINuevoSolicitudViaje.setText("Solicitud Viaje");
+        mINuevoSolicitudViaje.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mINuevoSolicitudViajeActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mINuevoSolicitudViaje);
+
         subMenuArchivo.add(jMenu1);
+
+        jMenu2.setText("Listas");
+
+        jMenuItem1.setText("Vehiculos");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem1);
+
+        subMenuArchivo.add(jMenu2);
 
         itemSalir.setText("Salir");
         itemSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -263,7 +292,7 @@ public final class InterfazViajes extends javax.swing.JFrame {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Crear().setVisible(true);
+                new CrearVehiculo().setVisible(true);
             }
         });
         
@@ -278,30 +307,44 @@ public final class InterfazViajes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jScrollPane1MouseClicked
 
-    private void TableVehiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableVehiculosMouseClicked
+    private void TableViajesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableViajesMouseClicked
 
-        Viaje capturado = ListaVehiculos.get(this.TableVehiculos.getSelectedRow());
+        Viaje capturado = listaViajes.get(this.TableViajes.getSelectedRow());
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MostrarDatos(capturado).setVisible(true);
+                new DetalleViaje(capturado).setVisible(true);
             }
         });
         
-    }//GEN-LAST:event_TableVehiculosMouseClicked
+    }//GEN-LAST:event_TableViajesMouseClicked
 
     private void txtBuscadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscadoKeyTyped
         if(this.txtBuscado.getText().length()==0)
-            insertarEnlista(ListaVehiculos);
+            insertarEnlista(listaViajes);
         else
-            insertarEnlista(administradorArchivos.filtradoVehiculos(this.comboFiltrado.getSelectedIndex(),this.txtBuscado.getText()));
+            insertarEnlista(administradorArchivos.filtradoViajes(this.comboFiltrado.getSelectedIndex(),this.txtBuscado.getText()));
 
     }//GEN-LAST:event_txtBuscadoKeyTyped
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
+    private void mINuevoSolicitudViajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mINuevoSolicitudViajeActionPerformed
+        
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new SolicitarViajes().setVisible(true);
+            }
+        });// TODO add your handling code here:
+    }//GEN-LAST:event_mINuevoSolicitudViajeActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new InterfazVehiculos().setVisible(true);
+            }
+        });//    // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    
+    
+     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -315,40 +358,44 @@ public final class InterfazViajes extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InterfazViajes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InterfazViajes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InterfazViajes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InterfazViajes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-
                 new InterfazViajes().setVisible(true);
-
             }
         });
     }
+    /**
+     * @param args the command line arguments
+     */
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable TableVehiculos;
+    private javax.swing.JTable TableViajes;
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JComboBox<String> comboFiltrado;
     private javax.swing.JMenuItem itemSalir;
     private javax.swing.JMenuItem itemUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenuItem mINuevoChofer;
     private javax.swing.JMenuItem mINuevoEmpresa;
     private javax.swing.JMenuItem mINuevoPasajero;
+    private javax.swing.JMenuItem mINuevoSolicitudViaje;
     private javax.swing.JMenuItem mINuevoVehiculo;
     private javax.swing.JMenu subMenuArchivo;
     private javax.swing.JMenu subMenuEditar;

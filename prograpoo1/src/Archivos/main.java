@@ -14,13 +14,7 @@ import java.util.Date;
 public class main {
 
     public static void main(String[] args) throws ParseException {
-        Date fecha = new Date();
-        SimpleDateFormat formatoString = new SimpleDateFormat("dd/MM/yyyy");
-        String fechaComoCadena = sdf.format(new Date());
         
-        Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(fechaComoCadena);  
-       
-        System.err.println(fechaComoCadena);
        
     }
 }
