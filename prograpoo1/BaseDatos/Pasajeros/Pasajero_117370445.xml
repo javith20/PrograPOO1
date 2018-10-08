@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xml>
+   <Pasajero>
+      <Nombre>Rodrigo Arias</Nombre>
+      <Cedula>117370445</Cedula>
+      <Correo>aguerojavith@gmail.com</Correo>
+      <Telefono>85343403</Telefono>
+   </Pasajero>
+</xml>
+

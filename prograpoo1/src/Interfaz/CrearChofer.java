@@ -7,6 +7,7 @@ package Interfaz;
 
 import Archivos.AdministradorArchivos;
 import Archivos.GuardarXML;
+import Archivos.main;
 import LogicaNegocios.Chofer;
 import LogicaNegocios.Direccion;
 import LogicaNegocios.Licencia;
@@ -308,7 +309,7 @@ public class CrearChofer extends javax.swing.JFrame {
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         try {
-            if (InterfazViajes.administradorArchivos.filtradoChoferes(txtCedula.getText()).getCedula() == 1) {
+            if (main.admin.filtradoChoferes(txtCedula.getText()).getCedula() == 1) {
                 GuardarXML guarda;
                 for (int j = 0; licenciasArrayList.size() > j; j++) {
                     guarda = new GuardarXML(licenciasArrayList.get(j));

@@ -13,6 +13,8 @@ import LogicaNegocios.Licencia;
 import LogicaNegocios.Mantenimiento;
 import LogicaNegocios.Pasajero;
 import LogicaNegocios.Viaje;
+import Roles.Usuario;
+import com.sun.xml.internal.ws.api.pipe.Fiber;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -34,6 +36,7 @@ public class AdministradorArchivos {
     private final File dirMantenimientos = new File("BaseDatos//Mantenimientos//");
     private final File dirEmpresas = new File("BaseDatos//Empresas//");
     private final File dirViajes = new File("BaseDatos//Viajes//");
+    private final File dirRoles = new File("BaseDatos//Roles//");
 
     private LectorXML lectorXML;
     private SimpleDateFormat formatoString = new SimpleDateFormat("dd/MM/yyyy");
@@ -46,6 +49,7 @@ public class AdministradorArchivos {
     private ArrayList<Empresa> empresas = new ArrayList<>();
     private ArrayList<Mantenimiento> mantenimientos = new ArrayList<Mantenimiento>();
     private ArrayList<Viaje> viajes = new ArrayList<>();
+    private ArrayList<Usuario> usuarios = new ArrayList<>();
 
     public AdministradorArchivos() {
         lectorXML = new LectorXML();
@@ -55,7 +59,7 @@ public class AdministradorArchivos {
         cargarVehiculos();
         cargarPasajeros();
         cargarViajes();
-
+        cargarUsuarios();
     }
 
     private void cargarVehiculos() {
@@ -108,9 +112,9 @@ public class AdministradorArchivos {
         for (int indice = 0; dirChoferes.list().length > indice; indice++) {
             aux = lectorXML.getListaElementos(dirChoferes.getAbsolutePath() + "\\" + dirChoferes.list()[indice], "Chofer");
             ArrayList<Licencia> auxLicencias = new ArrayList<>();
-            
+
             String[] lista = aux.get(2).split(";");
-            
+
             for (int i = 0; lista.length - 1 >= i; i++) {
                 auxLicencias.add(filtradoLicencias(lista[i]));
             }
@@ -154,7 +158,7 @@ public class AdministradorArchivos {
 
             } catch (ParseException e) {
             }
-            Viaje nuevo = new Viaje(aux.get(0), pasajerosViaje, solicituDate, inicioDate, finDate, auxvehiculo, auxChofer, aux.get(7),aux.get(8));
+            Viaje nuevo = new Viaje(aux.get(0), pasajerosViaje, solicituDate, inicioDate, finDate, auxvehiculo, auxChofer, aux.get(7), aux.get(8));
             aux.clear();
 
             viajes.add(nuevo);
@@ -162,8 +166,41 @@ public class AdministradorArchivos {
 
     }
 
+    private void cargarUsuarios() {
+        ArrayList<String> aux;
+        for (int indice = 0; dirRoles.list().length > indice; indice++) {
+            aux = lectorXML.getListaElementos(dirRoles.getAbsolutePath() + "\\" + dirRoles.list()[indice], "Usuario");
+            ArrayList<Viaje> auxViajes = new ArrayList<>();
+            
+                String[] lista = aux.get(4).split(";");
+               
+                for (int i = 0; lista.length - 1 >= i; i++) {
+                    if(!filtradoViajes(0, lista[i]).isEmpty()){
+                    auxViajes.add(filtradoViajes(0, lista[i]).get(0));
+                }
+            }
+            Usuario nuevo;
+            nuevo = new Usuario(aux.get(0), aux.get(1), aux.get(2), aux.get(3));
+            aux.clear();
+            usuarios.add(nuevo);
+        }
+    }
+
+    public Usuario filtradoUsuario(String Busqueda) {
+        Usuario auxDireccion = new Usuario();
+        for (int i = 0; usuarios.size() > i; i++) {
+            if (0 == usuarios.get(i).getCorreo().compareTo(Busqueda)) {
+                auxDireccion = usuarios.get(i);
+            }
+        }
+        return auxDireccion;
+    }
+
+    public ArrayList<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
     public Direccion filtradoDireciones(String Busqueda) {
-        System.out.println(Busqueda);
         Direccion auxDireccion = new Direccion();
         for (int i = 0; Direcciones.size() > i; i++) {
             if (0 == Direcciones.get(i).getID().compareTo(Busqueda)) {

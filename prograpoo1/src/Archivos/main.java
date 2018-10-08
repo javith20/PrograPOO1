@@ -5,6 +5,8 @@
  */
 package Archivos;
 
+import Roles.InicioSecion;
+import Roles.Usuario;
 import java.text.DateFormat;
 
 import java.text.ParseException;
@@ -13,8 +15,11 @@ import java.util.Date;
 
 public class main {
 
+    public static AdministradorArchivos admin = new AdministradorArchivos();
+    public static Usuario usuario = new Usuario();
     public static void main(String[] args) {
-       AdministradorArchivos a   =  new AdministradorArchivos();
-        
+        java.awt.EventQueue.invokeLater(() -> {
+            new InicioSecion().setVisible(true);
+        });
     }
 }

@@ -7,6 +7,7 @@ package Interfaz;
 
 import Archivos.AdministradorArchivos;
 import Archivos.GuardarXML;
+import Archivos.main;
 import LogicaNegocios.Direccion;
 import LogicaNegocios.Pasajero;
 import javax.swing.JOptionPane;
@@ -230,7 +231,7 @@ public class CrearPasajero extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        if(InterfazViajes.administradorArchivos.filtradoPasajero(1, txtCedula.getText()).isEmpty()){
+        if(main.admin.filtradoPasajero(1, txtCedula.getText()).isEmpty()){
             Direccion nuDireccion = new Direccion(txtCedula.getText(),txtProvincia.getText(), txtCanton.getText(), txtDistrito.getText(), txtSegnas.getText());
             GuardarXML guardarXML = new GuardarXML(nuDireccion);
             Pasajero nuevo;

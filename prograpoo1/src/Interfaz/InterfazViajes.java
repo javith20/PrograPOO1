@@ -7,6 +7,7 @@ package Interfaz;
 
 import Archivos.AdministradorArchivos;
 import Archivos.LectorXML;
+import Archivos.main;
 import LogicaNegocios.Viaje;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -25,8 +26,7 @@ import java.text.SimpleDateFormat;
  */
 public final class InterfazViajes extends javax.swing.JFrame {
      private SimpleDateFormat formatoString = new SimpleDateFormat("dd/MM/yyyy");
-    public  static AdministradorArchivos administradorArchivos = new AdministradorArchivos();
-    private ArrayList<Viaje> listaViajes =  administradorArchivos.getViajes();
+    private ArrayList<Viaje> listaViajes =  main.admin.getViajes();
     private DefaultTableModel modelo;
 
     /**
@@ -327,7 +327,7 @@ public final class InterfazViajes extends javax.swing.JFrame {
         if(this.txtBuscado.getText().length()==0)
             insertarEnlista(listaViajes);
         else
-            insertarEnlista(administradorArchivos.filtradoViajes(this.comboFiltrado.getSelectedIndex(),this.txtBuscado.getText()));
+            insertarEnlista(main.admin.filtradoViajes(this.comboFiltrado.getSelectedIndex(),this.txtBuscado.getText()));
 
     }//GEN-LAST:event_txtBuscadoKeyTyped
 
@@ -355,39 +355,7 @@ public final class InterfazViajes extends javax.swing.JFrame {
             }
         });// 
     }//GEN-LAST:event_mINuevoChoferActionPerformed
-    
-    
-     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new InterfazViajes().setVisible(true);
-            }
-        });
-    }
     /**
      * @param args the command line arguments
      */

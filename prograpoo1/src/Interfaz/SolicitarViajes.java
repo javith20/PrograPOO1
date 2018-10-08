@@ -6,8 +6,11 @@
 package Interfaz;
 
 import Archivos.GuardarXML;
+import Archivos.main;
 import LogicaNegocios.Pasajero;
 import LogicaNegocios.Viaje;
+import Roles.InicioSecion;
+import Roles.Usuario;
 import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,14 +25,16 @@ import javax.swing.table.DefaultTableModel;
  */
 public class SolicitarViajes extends javax.swing.JFrame {
 
-    private ArrayList<Pasajero> listaPasajeros = InterfazViajes.administradorArchivos.getPasajeros();
+    private ArrayList<Pasajero> listaPasajeros = main.admin.getPasajeros();
     private ArrayList<Pasajero> listaPasajerosSeleccionados = new ArrayList<>();
     private DefaultTableModel modelo;
+    private Usuario usuario;
 
     /**
      * Creates new form SolicitarViajes
      */
     public SolicitarViajes() {
+        this.usuario = InicioSecion.usuario;
         initComponents();
         CargarComponentes();
     }
@@ -40,7 +45,7 @@ public class SolicitarViajes extends javax.swing.JFrame {
             this.comboPasajerosExistentes.addItem(listaPasajeros.get(i).getNombre() + " " + listaPasajeros.get(i).getCedula());
 
         }
-        System.err.println(listaPasajerosSeleccionados);
+        
         this.insertarEnlista(listaPasajerosSeleccionados);
 
     }
@@ -322,6 +327,8 @@ public class SolicitarViajes extends javax.swing.JFrame {
             if(!txtDescripcion.getText().equals("") && !listaPasajerosSeleccionados.isEmpty()){
             if (dias > 1) {
                 Viaje nuevo = new Viaje(listaPasajerosSeleccionados, fechaActual, fechaGuardarinicio, fechaGuardarfin, txtDescripcion.getText());
+                this.usuario.EnlistarViaje(nuevo);
+                GuardarXML guarda = new GuardarXML (this.usuario);
                 GuardarXML guardar = new GuardarXML(nuevo);
                 this.dispose();
             }else{

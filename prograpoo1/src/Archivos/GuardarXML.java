@@ -37,6 +37,7 @@ import LogicaNegocios.Mantenimiento;
 import LogicaNegocios.Pasajero;
 import LogicaNegocios.Vehiculo;
 import LogicaNegocios.Viaje;
+import Roles.Usuario;
 import java.text.SimpleDateFormat;
 
 /**
@@ -133,7 +134,7 @@ public class GuardarXML {
             //Ingresamos la info. El color de esta habitación es azul
             Text valoAtributo0 = document.createTextNode(pasajero.getNombre());
             Text valoAtributo1 = document.createTextNode(String.valueOf(pasajero.getCedula()));
-            
+
             Text valoAtributo3 = document.createTextNode(pasajero.getCorreo());
             Text valoAtributo4 = document.createTextNode(String.valueOf(pasajero.getTelefono()));
 
@@ -144,14 +145,14 @@ public class GuardarXML {
             //Añadimos el elemento hijo a la raíz
             tipoObjeto.appendChild(atributo0);
             tipoObjeto.appendChild(atributo1);
-           
+
             tipoObjeto.appendChild(atributo3);
             tipoObjeto.appendChild(atributo4);
 
             //Añadimos elemento
             atributo0.appendChild(valoAtributo0);
             atributo1.appendChild(valoAtributo1);
-          
+
             atributo3.appendChild(valoAtributo3);
             atributo4.appendChild(valoAtributo4);
             this.guardaConFormato();
@@ -401,7 +402,7 @@ public class GuardarXML {
             System.err.println("Error: " + e);
         }
     }
-    
+
     public GuardarXML(Viaje viaje) {
         this.ruta = "BaseDatos//Viajes//viaje_" + String.valueOf(viaje.getID()) + ".xml";
         try {
@@ -422,25 +423,24 @@ public class GuardarXML {
             Element atributo6 = document.createElement("Chofer");
             Element atributo7 = document.createElement("Estado");
             Element atributo8 = document.createElement("Descripcion");
-            
-            
+
             String fecha;
             //Ingresamos la info. El color de esta habitación es azul
             Text valoAtributo0 = document.createTextNode(viaje.getID());
-            String msg="";
+            String msg = "";
             System.err.println(viaje.getListaPasajeros());
-            for( int i=0 ; i < viaje.getListaPasajeros().size() ;i++ ){
-                msg += viaje.getListaPasajeros().get(i).getCedula()+";";
+            for (int i = 0; i < viaje.getListaPasajeros().size(); i++) {
+                msg += viaje.getListaPasajeros().get(i).getCedula() + ";";
             }
             Text valoAtributo1 = document.createTextNode(msg);
             Text valoAtributo2 = document.createTextNode(formatoString.format(viaje.getSolicitud()));
-            Text valoAtributo3 = document.createTextNode(formatoString.format(viaje.getInicioDate()));           
+            Text valoAtributo3 = document.createTextNode(formatoString.format(viaje.getInicioDate()));
             Text valoAtributo4 = document.createTextNode(formatoString.format(viaje.getFinDate()));
             Text valoAtributo5 = document.createTextNode(" ");
             Text valoAtributo6 = document.createTextNode(" ");
-            if(!"En Confeccion".equals(viaje.getEstado())){
-             valoAtributo5 = document.createTextNode(viaje.getVehiculo().getPlaca());
-             valoAtributo6 = document.createTextNode(String.valueOf(viaje.getChofer().getCedula()));
+            if (!"En Confeccion".equals(viaje.getEstado())) {
+                valoAtributo5 = document.createTextNode(viaje.getVehiculo().getPlaca());
+                valoAtributo6 = document.createTextNode(String.valueOf(viaje.getChofer().getCedula()));
             }
             Text valoAtributo7 = document.createTextNode(viaje.getEstado());
             Text valoAtributo8 = document.createTextNode(viaje.getDescripcionString());
@@ -475,7 +475,59 @@ public class GuardarXML {
             System.err.println("Error: " + e);
         }
     }
-    
+
+    public GuardarXML(Usuario usuario) {
+        this.ruta = "BaseDatos//Roles//Usuario_" + String.valueOf(usuario.getCorreo()) + ".xml";
+        try {
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            DOMImplementation implementation = builder.getDOMImplementation();
+            document = implementation.createDocument(null, "xml", null);
+
+            //Creación de elementos
+            //creamos el elemento principal casa
+            Element tipoObjeto = document.createElement("Usuario");
+            //creamos un nuevo elemento. Casa contiene habitaciones
+            Element atributo0 = document.createElement("Nombre");
+            Element atributo1 = document.createElement("Correo");
+            Element atributo2 = document.createElement("Tipo");
+            Element atributo3 = document.createElement("Contra");
+            Element atributo4 = document.createElement("ListaViajes");
+
+            //Ingresamos la info. El color de esta habitación es azul
+            Text valoAtributo0 = document.createTextNode(usuario.getNombre());
+            Text valoAtributo1 = document.createTextNode(usuario.getCorreo());
+            Text valoAtributo2 = document.createTextNode(usuario.getTipo());
+            Text valoAtributo3 = document.createTextNode(usuario.getContrasena());
+            String msg = ";";
+            for (int i = 0; usuario.getListaSolicitudes().size() > i; i++) {
+                msg += usuario.getListaSolicitudes().get(i).getID() + ";";
+            }
+            Text valoAtributo4 = document.createTextNode(msg);
+//Asignamos la versión de nuestro XML
+            document.setXmlVersion("1.0");
+            //Añadimos la casa al documento
+            document.getDocumentElement().appendChild(tipoObjeto);
+            //Añadimos el elemento hijo a la raíz
+            tipoObjeto.appendChild(atributo0);
+            tipoObjeto.appendChild(atributo1);
+            tipoObjeto.appendChild(atributo2);
+            tipoObjeto.appendChild(atributo3);
+            tipoObjeto.appendChild(atributo4);
+
+            //Añadimos elemento
+            atributo0.appendChild(valoAtributo0);
+            atributo1.appendChild(valoAtributo1);
+            atributo2.appendChild(valoAtributo2);
+            atributo3.appendChild(valoAtributo3);
+            atributo4.appendChild(valoAtributo4);
+            this.guardaConFormato();
+
+//Añadimos valor
+        } catch (ParserConfigurationException | DOMException e) {
+            System.err.println("Error: " + e);
+        }
+    }
+
     private void guardaConFormato() {
         try {
             TransformerFactory transFact = TransformerFactory.newInstance();

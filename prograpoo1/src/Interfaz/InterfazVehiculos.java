@@ -7,6 +7,7 @@ package Interfaz;
 
 import Archivos.AdministradorArchivos;
 import Archivos.LectorXML;
+import Archivos.main;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -22,7 +23,7 @@ import LogicaNegocios.Vehiculo;
  */
 public final class InterfazVehiculos extends javax.swing.JFrame {
 
-    private ArrayList<Vehiculo> ListaVehiculos = InterfazViajes.administradorArchivos.getVehiculos();
+    private ArrayList<Vehiculo> ListaVehiculos = main.admin.getVehiculos();
     private DefaultTableModel modelo;
 
     /**
@@ -36,6 +37,7 @@ public final class InterfazVehiculos extends javax.swing.JFrame {
 
         }
     }
+    
     private void CargarComponentes() {
         this.comboFiltrado.removeAllItems();
         this.comboFiltrado.addItem("Placa");
@@ -290,7 +292,7 @@ public final class InterfazVehiculos extends javax.swing.JFrame {
         if(this.txtBuscado.getText().length()==0)
             insertarEnlista(ListaVehiculos);
         else
-            insertarEnlista(InterfazViajes.administradorArchivos.filtradoVehiculos(this.comboFiltrado.getSelectedIndex(),this.txtBuscado.getText()));
+            insertarEnlista(main.admin.filtradoVehiculos(this.comboFiltrado.getSelectedIndex(),this.txtBuscado.getText()));
 
     }//GEN-LAST:event_txtBuscadoKeyTyped
 

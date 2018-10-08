@@ -5,16 +5,25 @@
  */
 package Roles;
 
+import Archivos.main;
+import Interfaz.InterfazViajes;
+import Interfaz.InterfazViajesUsuario;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Javith
  */
 public class InicioSecion extends javax.swing.JFrame {
 
+    private final ArrayList<Usuario> usuarios;
+    public static Usuario usuario;
     /**
      * Creates new form InicioSecion
      */
     public InicioSecion() {
+        this.usuarios = main.admin.getUsuarios();
         initComponents();
     }
 
@@ -47,8 +56,18 @@ public class InicioSecion extends javax.swing.JFrame {
         });
 
         btnInicio.setText("Inciar ");
+        btnInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInicioActionPerformed(evt);
+            }
+        });
 
         btnRegistrar.setText("Registrar nuevo secretario");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -101,40 +120,33 @@ public class InicioSecion extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtClaveActionPerformed
 
+    private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
+        Usuario user = main.admin.filtradoUsuario(txtUser.getText());
+        if (!user.getNombre().equals("NULL")) {
+            if (user.getContrasena().equals(txtClave.getText())) {
+                java.awt.EventQueue.invokeLater(() -> {
+                    InicioSecion.this.usuario = user;
+                    new InterfazViajesUsuario().setVisible(true);
+                });
+            }else{
+                JOptionPane.showMessageDialog(this, "Contraseña incorrecta");
+            }
+        }else{
+             JOptionPane.showMessageDialog(this, "El usuaro no existe");
+        }
+
+
+    }//GEN-LAST:event_btnInicioActionPerformed
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+         java.awt.EventQueue.invokeLater(() -> {
+             new Registro().setVisible(true);
+         });       // TODO add your handling code here:
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InicioSecion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InicioSecion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InicioSecion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InicioSecion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new InicioSecion().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnInicio;

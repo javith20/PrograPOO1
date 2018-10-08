@@ -6,6 +6,7 @@
 package Interfaz;
 
 import Archivos.GuardarXML;
+import Archivos.main;
 import LogicaNegocios.Chofer;
 import LogicaNegocios.Pasajero;
 import LogicaNegocios.Vehiculo;
@@ -24,8 +25,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class DetalleViaje extends javax.swing.JFrame {
 
-    private ArrayList<Chofer> listaChoferes = InterfazViajes.administradorArchivos.getChoferes();
-    private ArrayList<Vehiculo> listaVehiculos = InterfazViajes.administradorArchivos.getVehiculos();
+    private ArrayList<Chofer> listaChoferes = main.admin.getChoferes();
+    private ArrayList<Vehiculo> listaVehiculos = main.admin.getVehiculos();
     private ArrayList<Pasajero> listaPasajerosSeleccionados;
     private DefaultTableModel modelo;
     private SimpleDateFormat formatoString = new SimpleDateFormat("dd/MM/yyyy");
