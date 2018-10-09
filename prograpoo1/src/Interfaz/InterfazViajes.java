@@ -102,7 +102,6 @@ public final class InterfazViajes extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenu1 = new javax.swing.JMenu();
         mINuevoChofer = new javax.swing.JMenuItem();
-        mINuevoEmpresa = new javax.swing.JMenuItem();
         mINuevoPasajero = new javax.swing.JMenuItem();
         mINuevoVehiculo = new javax.swing.JMenuItem();
         mINuevoSolicitudViaje = new javax.swing.JMenuItem();
@@ -182,9 +181,6 @@ public final class InterfazViajes extends javax.swing.JFrame {
             }
         });
         jMenu1.add(mINuevoChofer);
-
-        mINuevoEmpresa.setText("Empresa");
-        jMenu1.add(mINuevoEmpresa);
 
         mINuevoPasajero.setText("Pasajero");
         mINuevoPasajero.addActionListener(new java.awt.event.ActionListener() {
@@ -363,7 +359,6 @@ public final class InterfazViajes extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenuItem mINuevoChofer;
-    private javax.swing.JMenuItem mINuevoEmpresa;
     private javax.swing.JMenuItem mINuevoPasajero;
     private javax.swing.JMenuItem mINuevoSolicitudViaje;
     private javax.swing.JMenuItem mINuevoVehiculo;

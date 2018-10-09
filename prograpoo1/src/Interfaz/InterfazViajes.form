@@ -24,11 +24,6 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mINuevoChoferActionPerformed"/>
                   </Events>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="mINuevoEmpresa">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Empresa"/>
-                  </Properties>
-                </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mINuevoPasajero">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Pasajero"/>
