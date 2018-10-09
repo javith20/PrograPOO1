@@ -173,14 +173,15 @@ public class AdministradorArchivos {
             ArrayList<Viaje> auxViajes = new ArrayList<>();
             
                 String[] lista = aux.get(4).split(";");
-               
+                
                 for (int i = 0; lista.length - 1 >= i; i++) {
                     if(!filtradoViajes(0, lista[i]).isEmpty()){
                     auxViajes.add(filtradoViajes(0, lista[i]).get(0));
+                        System.out.println(auxViajes.get(0));
                 }
             }
             Usuario nuevo;
-            nuevo = new Usuario(aux.get(0), aux.get(1), aux.get(2), aux.get(3));
+            nuevo = new Usuario(aux.get(0), aux.get(1), aux.get(2), aux.get(3),auxViajes);
             aux.clear();
             usuarios.add(nuevo);
         }
@@ -348,7 +349,7 @@ public class AdministradorArchivos {
                             auxViajes.add(viajes.get(i));
                         }
                         break;
-                    } catch (Exception e) {
+                    } catch (ParseException e) {
                         JOptionPane.showMessageDialog(null, "Error de Formato de la fecha");
                     }
                 }
@@ -398,7 +399,7 @@ public class AdministradorArchivos {
         }
         return auxViajes;
     }
-
+    
     public ArrayList<Direccion> getDirecciones() {
         return Direcciones;
     }

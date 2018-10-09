@@ -530,6 +530,7 @@ public class GuardarXML {
 
     private void guardaConFormato() {
         try {
+            
             TransformerFactory transFact = TransformerFactory.newInstance();
 
             //Formateamos el fichero. Añadimos sangrado y la cabecera de XML
@@ -556,6 +557,7 @@ public class GuardarXML {
 
                 //Cerramos el fichero
                 writer.close();
+                main.Actualizar();
             } catch (IOException e) {
             }
         } catch (IllegalArgumentException | TransformerException ex) {

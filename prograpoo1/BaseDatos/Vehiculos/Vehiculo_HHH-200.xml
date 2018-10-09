@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <xml>
    <Vehiculo>
-      <Placa>GGG-2018</Placa>
+      <Placa>HHH-200</Placa>
       <Color>Blanco</Color>
       <Marca>Hyundai</Marca>
-      <AgnoFabricacion>2018</AgnoFabricacion>
+      <AgnoFabricacion>2015</AgnoFabricacion>
       <Capacidad>5</Capacidad>
       <Kilometraje>3500.0</Kilometraje>
-      <Vin>2122112</Vin>
+      <Vin>12121</Vin>
       <Sede>Cartago</Sede>
-      <Estado>Mantenimiento</Estado>
+      <Estado>Servicio</Estado>
    </Vehiculo>
 </xml>
 

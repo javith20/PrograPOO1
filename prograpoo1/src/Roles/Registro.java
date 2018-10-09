@@ -6,6 +6,9 @@
 package Roles;
 
 import Archivos.GuardarXML;
+import Archivos.main;
+import Conexiones.Correo;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -106,9 +109,20 @@ public class Registro extends javax.swing.JFrame {
     
     
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        Usuario nuevo = new Usuario(txtNombre.getText(), txtUser.getText(), "Secretario", crearContra());
-        GuardarXML guardar = new GuardarXML(nuevo);
-        this.dispose();
+        String [] Msg ={ "\nBienvenido, gracias por regristrarse en el sistema.", "\nSu Usuario es: ","\nSu contraseña es :","\nSu cargo es: ", "\nGracias"};
+       
+        try {
+            Correo c = new  Correo();
+            Usuario nuevo = new Usuario(txtNombre.getText(), txtUser.getText(), "Secretario", crearContra());
+             String msg = Msg[0]+Msg[1]+nuevo.getCorreo()+Msg[2]+nuevo.getContrasena()+Msg[3]+nuevo.getTipo()+Msg[4];
+            c.enviarGmail("Registro",msg, nuevo.getCorreo());
+            GuardarXML guardar = new GuardarXML(nuevo);
+            this.dispose();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane,"Error al registrar");
+        }
+        
+
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     /**

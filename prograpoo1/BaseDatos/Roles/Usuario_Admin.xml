@@ -3,9 +3,9 @@
    <Usuario>
       <Nombre>Admin</Nombre>
       <Correo>Admin</Correo>
-      <Tipo>Secretario</Tipo>
+      <Tipo>Administrador</Tipo>
       <Contra>Admin</Contra>
-      <ListaViajes>VIA-2;</ListaViajes>
+      <ListaViajes>;VIA-1;</ListaViajes>
    </Usuario>
 </xml>
 

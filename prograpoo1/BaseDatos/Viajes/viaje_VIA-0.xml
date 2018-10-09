@@ -2,14 +2,14 @@
 <xml>
    <Viaje>
       <ID>VIA-0</ID>
-      <Pasajeros>17370445;</Pasajeros>
+      <Pasajeros>117370445;</Pasajeros>
       <Solicitud>08/10/2018</Solicitud>
-      <inicioDate>11/10/2018</inicioDate>
-      <finDate>11/10/2018</finDate>
+      <inicioDate>20/03/2019</inicioDate>
+      <finDate>20/03/1999</finDate>
       <Vehiculo>Sin definir</Vehiculo>
       <Chofer>1</Chofer>
       <Estado>Cancelado</Estado>
-      <Descripcion>Viaje Lejos</Descripcion>
+      <Descripcion>Listo</Descripcion>
    </Viaje>
 </xml>
 

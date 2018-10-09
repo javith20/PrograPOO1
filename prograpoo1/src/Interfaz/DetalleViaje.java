@@ -7,15 +7,20 @@ package Interfaz;
 
 import Archivos.GuardarXML;
 import Archivos.main;
+import Conexiones.Correo;
 import LogicaNegocios.Chofer;
 import LogicaNegocios.Pasajero;
 import LogicaNegocios.Vehiculo;
 import LogicaNegocios.Viaje;
+import Roles.InicioSecion;
+import Roles.Usuario;
 import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import javax.mail.MessagingException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -31,6 +36,7 @@ public class DetalleViaje extends javax.swing.JFrame {
     private DefaultTableModel modelo;
     private SimpleDateFormat formatoString = new SimpleDateFormat("dd/MM/yyyy");
     private Viaje viaje;
+    private Usuario usuario = InicioSecion.usuario;
 
     /**
      * Creates new form SolicitarViajes
@@ -63,15 +69,22 @@ public class DetalleViaje extends javax.swing.JFrame {
         for (int j = 0; listaVehiculos.size() > j; j++) {
             this.comboVehiculos.addItem(listaVehiculos.get(j).getPlaca());
         }
-        if (viaje.getEstado().equals("Cancelado")) {
+        if (viaje.getEstado().equals("Cancelado") || !this.usuario.getTipo().equals("Administrador")) {
             comboChoferes.setEnabled(false);
             comboVehiculos.setEnabled(false);
             btnAprobarViaje.setEnabled(false);
             btnCancelarViaje.setEnabled(false);
         }
+        if (viaje.getEstado().equals("Aprobado") || !this.usuario.getTipo().equals("Administrador")) {
+            comboChoferes.setEnabled(false);
+            comboVehiculos.setEnabled(false);
+            btnAprobarViaje.setEnabled(false);
+            
+        }
     }
 
     private void insertarEnlista(ArrayList<Pasajero> lista) {
+        main.Actualizar();
         Clear();
         modelo = (DefaultTableModel) tablePasajeros.getModel();
 
@@ -188,6 +201,11 @@ public class DetalleViaje extends javax.swing.JFrame {
         comboVehiculos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnAprobarViaje.setText("Aprobar viaje");
+        btnAprobarViaje.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAprobarViajeActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Fecha Solicutud");
@@ -312,7 +330,7 @@ public class DetalleViaje extends javax.swing.JFrame {
                             .addComponent(btnGuardar)
                             .addComponent(btnCancelar)))
                     .addComponent(jScrollPane2))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -323,9 +341,7 @@ public class DetalleViaje extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -347,10 +363,8 @@ public class DetalleViaje extends javax.swing.JFrame {
     private void tablePasajerosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablePasajerosMouseClicked
 
         Pasajero capturado = listaPasajerosSeleccionados.get(this.tablePasajeros.getSelectedRow());
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MostrarDatos(capturado).setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new MostrarDatos(capturado).setVisible(true);
         });        // TODO add your handling code here:
     }//GEN-LAST:event_tablePasajerosMouseClicked
 
@@ -359,17 +373,69 @@ public class DetalleViaje extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFechaSolicitudActionPerformed
 
     private void btnCancelarViajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarViajeActionPerformed
-        if (this.viaje.getEstado().equals("Aprobado")) {
-            int name = 1; //CODIGO MENSAJERIA
-        } else {
-            this.viaje.setEstado("Cancelado");
+        this.viaje.setChofer(listaChoferes.get(this.comboChoferes.getSelectedIndex()));
+        this.viaje.setVehiculo(listaVehiculos.get(this.comboVehiculos.getSelectedIndex()));
+        String msg = "El Viaje "+ viaje.getID()+ " Con destino a "+viaje.getDescripcionString()+"Con un inicio en la fecha "+ viaje.getInicioDate().toString();
+        msg += "\n El Chofer "+viaje.getChofer().getNombre();
+        for(int p =0 ; viaje.getListaPasajeros().size()>p;p++){
+            msg+="\n"+viaje.getListaPasajeros().get(p).getNombre();
         }
+        try {
+            if (this.viaje.getEstado().equals("Aprobado")) {
+                if (listaVehiculos.get(this.comboVehiculos.getSelectedIndex()).getCapacidad() >= listaPasajerosSeleccionados.size() - 1) {
+                    Correo envio = new Correo();
+                    envio.enviarGmail("Cancelacion de Viaje", msg, viaje.getChofer().getCorreo());
+                    for (int i = 0; listaPasajerosSeleccionados.size() > i; i++) {
+                        envio.enviarGmail("Cancelacion de Viaje", msg, viaje.getListaPasajeros().get(i).getCorreo());
+                    }
+                    this.viaje.setEstado("Cancelado");
+                   
+                }
+
+            } else {
+                this.viaje.setEstado("Cancelado");
+            }
+        } catch (MessagingException e) {
+            
+        }
+        
+
         CargarComponentes();
     }//GEN-LAST:event_btnCancelarViajeActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnAprobarViajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAprobarViajeActionPerformed
+        this.viaje.setChofer(listaChoferes.get(this.comboChoferes.getSelectedIndex()));
+        this.viaje.setVehiculo(listaVehiculos.get(this.comboVehiculos.getSelectedIndex()));
+        String msg = "El Viaje "+ viaje.getID()+ " Con destino a "+viaje.getDescripcionString()+"Con un inicio en la fecha "+ viaje.getInicioDate().toString();
+        msg += "\n El Chofer "+viaje.getChofer().getNombre();
+        for(int p =0 ; viaje.getListaPasajeros().size()>p;p++){
+            msg+="\n"+viaje.getListaPasajeros().get(p).getNombre();
+        }
+        try {
+            if (this.viaje.getEstado().equals("En Confeccion")) {
+                if (listaVehiculos.get(this.comboVehiculos.getSelectedIndex()).getCapacidad() >= listaPasajerosSeleccionados.size() - 1) {
+                    Correo envio = new Correo();
+                    envio.enviarGmail("Aprobacion de Viaje", msg, viaje.getChofer().getCorreo());
+                    for (int i = 0; listaPasajerosSeleccionados.size() > i; i++) {
+                        envio.enviarGmail("Aprobacion de Viaje", msg, viaje.getListaPasajeros().get(i).getCorreo());
+                    }
+                    this.viaje.setEstado("Aprobado");
+                    
+                }
+
+            } else {
+
+            }
+        } catch (MessagingException e) {
+            JOptionPane.showMessageDialog(rootPane, e);
+        }
+        GuardarXML nuevo = new GuardarXML(viaje);
+        CargarComponentes();
+    }//GEN-LAST:event_btnAprobarViajeActionPerformed
 
     /**
      * @param args the command line arguments

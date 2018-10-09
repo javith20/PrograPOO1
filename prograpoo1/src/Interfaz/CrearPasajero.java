@@ -10,6 +10,7 @@ import Archivos.GuardarXML;
 import Archivos.main;
 import LogicaNegocios.Direccion;
 import LogicaNegocios.Pasajero;
+import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
 
 /**
@@ -231,7 +232,8 @@ public class CrearPasajero extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        if(main.admin.filtradoPasajero(1, txtCedula.getText()).isEmpty()){
+        try {
+            if(main.admin.filtradoPasajero(1, txtCedula.getText()).isEmpty()){
             Direccion nuDireccion = new Direccion(txtCedula.getText(),txtProvincia.getText(), txtCanton.getText(), txtDistrito.getText(), txtSegnas.getText());
             GuardarXML guardarXML = new GuardarXML(nuDireccion);
             Pasajero nuevo;
@@ -241,6 +243,11 @@ public class CrearPasajero extends javax.swing.JFrame {
         }else{
             JOptionPane.showMessageDialog(this,"Error Cedula Existente");
         }
+        } catch (HeadlessException | NumberFormatException e) {
+            JOptionPane.showMessageDialog(panelBotones, e);
+        }
+        
+        
         
     }//GEN-LAST:event_btnAceptarActionPerformed
 

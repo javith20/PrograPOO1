@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <xml>
-   <Pasajero>
-      <Nombre>Javith </Nombre>
-      <Cedula>17370445</Cedula>
+   <Chofer>
+      <Nombre>osvaldo</Nombre>
+      <Cedula>212</Cedula>
+      <Licencias>12;</Licencias>
       <Correo>aguerojavith@gmail.com</Correo>
       <Telefono>85343403</Telefono>
-   </Pasajero>
+   </Chofer>
 </xml>
 

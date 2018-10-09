@@ -8,6 +8,7 @@ package Interfaz;
 import Archivos.GuardarXML;
 import LogicaNegocios.Pasajero;
 import LogicaNegocios.Vehiculo;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -48,11 +49,9 @@ public class CrearVehiculo extends javax.swing.JFrame {
         txtVIN = new javax.swing.JTextField();
         labelAtrib7 = new javax.swing.JLabel();
         txtSede = new javax.swing.JTextField();
-        labelAtrib8 = new javax.swing.JLabel();
-        txtEstado = new javax.swing.JTextField();
-        labelTitulo = new javax.swing.JLabel();
         btnAceptar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        labelTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -80,8 +79,14 @@ public class CrearVehiculo extends javax.swing.JFrame {
         labelAtrib7.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         labelAtrib7.setText("Sede ");
 
-        labelAtrib8.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        labelAtrib8.setText("Estado");
+        btnAceptar.setText("Aceptar");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
+
+        btnCancelar.setText("Cancelar");
 
         javax.swing.GroupLayout panelBotonesLayout = new javax.swing.GroupLayout(panelBotones);
         panelBotones.setLayout(panelBotonesLayout);
@@ -121,12 +126,14 @@ public class CrearVehiculo extends javax.swing.JFrame {
                     .addGroup(panelBotonesLayout.createSequentialGroup()
                         .addComponent(labelAtrib7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtSede, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelBotonesLayout.createSequentialGroup()
-                        .addComponent(labelAtrib8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtSede, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addGroup(panelBotonesLayout.createSequentialGroup()
+                .addGap(110, 110, 110)
+                .addComponent(btnAceptar)
+                .addGap(56, 56, 56)
+                .addComponent(btnCancelar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelBotonesLayout.setVerticalGroup(
             panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,24 +170,15 @@ public class CrearVehiculo extends javax.swing.JFrame {
                 .addGroup(panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelAtrib7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtSede, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelAtrib8, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnAceptar)
+                    .addComponent(btnCancelar))
+                .addContainerGap())
         );
 
         labelTitulo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         labelTitulo.setText("Agregar Vehiculo");
-
-        btnAceptar.setText("Aceptar");
-        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAceptarActionPerformed(evt);
-            }
-        });
-
-        btnCancelar.setText("Cancelar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -192,14 +190,9 @@ public class CrearVehiculo extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(labelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(118, 118, 118)
-                        .addComponent(btnAceptar)
-                        .addGap(57, 57, 57)
-                        .addComponent(btnCancelar))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(panelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(271, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,19 +201,22 @@ public class CrearVehiculo extends javax.swing.JFrame {
                 .addComponent(labelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAceptar)
-                    .addComponent(btnCancelar))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        Vehiculo nuevo = new Vehiculo(this.txtPlaca.getText(), this.txtColor.getText(), this.txtMarca.getText(),Integer.parseInt((this.txtagnoF.getText())), Integer.parseInt(this.txtCapacidad.getText()), Double.valueOf(this.txtKilometros.getText()), this.txtVIN.getText(), this.txtSede.getText(), this.txtEstado.getText());
+        try {
+        Vehiculo nuevo = new Vehiculo(this.txtPlaca.getText(), this.txtColor.getText(), this.txtMarca.getText(),Integer.parseInt((this.txtagnoF.getText())), Integer.parseInt(this.txtCapacidad.getText()), Double.valueOf(this.txtKilometros.getText()), this.txtVIN.getText(), this.txtSede.getText(),"En Servicio");
         GuardarXML garda =new GuardarXML(nuevo);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(panelBotones, e);
+        }
+        
+        
+        
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     /**
@@ -239,12 +235,10 @@ public class CrearVehiculo extends javax.swing.JFrame {
     private javax.swing.JLabel labelAtrib5;
     private javax.swing.JLabel labelAtrib6;
     private javax.swing.JLabel labelAtrib7;
-    private javax.swing.JLabel labelAtrib8;
     private javax.swing.JLabel labelTitulo;
     private javax.swing.JPanel panelBotones;
     private javax.swing.JTextField txtCapacidad;
     private javax.swing.JTextField txtColor;
-    private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtKilometros;
     private javax.swing.JTextField txtMarca;
     private javax.swing.JTextField txtPlaca;

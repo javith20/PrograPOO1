@@ -96,9 +96,9 @@ public final class InterfazViajes extends javax.swing.JFrame {
         txtBuscado = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         comboFiltrado = new javax.swing.JComboBox<>();
+        btnBuscar = new javax.swing.JButton();
         barraMenu = new javax.swing.JMenuBar();
         subMenuArchivo = new javax.swing.JMenu();
-        itemUsuario = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenu1 = new javax.swing.JMenu();
         mINuevoChofer = new javax.swing.JMenuItem();
@@ -109,9 +109,8 @@ public final class InterfazViajes extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         itemSalir = new javax.swing.JMenuItem();
-        subMenuEditar = new javax.swing.JMenu();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jScrollPane1.setForeground(new java.awt.Color(255, 0, 0));
         jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -164,15 +163,14 @@ public final class InterfazViajes extends javax.swing.JFrame {
             }
         });
 
-        subMenuArchivo.setText("Archivo");
-
-        itemUsuario.setText("Usuario");
-        itemUsuario.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemUsuarioActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
-        subMenuArchivo.add(itemUsuario);
+
+        subMenuArchivo.setText("Archivo");
         subMenuArchivo.add(jSeparator1);
 
         jMenu1.setText("Nuevo");
@@ -236,9 +234,6 @@ public final class InterfazViajes extends javax.swing.JFrame {
 
         barraMenu.add(subMenuArchivo);
 
-        subMenuEditar.setText("Editar");
-        barraMenu.add(subMenuEditar);
-
         setJMenuBar(barraMenu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -253,7 +248,9 @@ public final class InterfazViajes extends javax.swing.JFrame {
                 .addComponent(comboFiltrado, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtBuscado, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(164, 164, 164))
+                .addGap(32, 32, 32)
+                .addComponent(btnBuscar)
+                .addGap(59, 59, 59))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,7 +259,8 @@ public final class InterfazViajes extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtBuscado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboFiltrado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboFiltrado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -271,21 +269,17 @@ public final class InterfazViajes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void itemSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSalirActionPerformed
-
+        this.dispose();
     }//GEN-LAST:event_itemSalirActionPerformed
 
     private void mINuevoPasajeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mINuevoPasajeroActionPerformed
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CrearPasajero().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new CrearPasajero().setVisible(true);
         }); 
-        // TODO add your handling code here:
     }//GEN-LAST:event_mINuevoPasajeroActionPerformed
 
     private void txtBuscadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscadoActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_txtBuscadoActionPerformed
 
     private void comboFiltradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFiltradoActionPerformed
@@ -293,20 +287,11 @@ public final class InterfazViajes extends javax.swing.JFrame {
     }//GEN-LAST:event_comboFiltradoActionPerformed
 
     private void mINuevoVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mINuevoVehiculoActionPerformed
-
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CrearVehiculo().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new CrearVehiculo().setVisible(true);
         });
         
     }//GEN-LAST:event_mINuevoVehiculoActionPerformed
-
-    private void itemUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemUsuarioActionPerformed
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_itemUsuarioActionPerformed
 
     private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
         // TODO add your handling code here:
@@ -315,10 +300,8 @@ public final class InterfazViajes extends javax.swing.JFrame {
     private void TableViajesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableViajesMouseClicked
 
         Viaje capturado = listaViajes.get(this.TableViajes.getSelectedRow());
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new DetalleViaje(capturado).setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new DetalleViaje(capturado).setVisible(true);
         });
         
     }//GEN-LAST:event_TableViajesMouseClicked
@@ -326,8 +309,7 @@ public final class InterfazViajes extends javax.swing.JFrame {
     private void txtBuscadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscadoKeyTyped
         if(this.txtBuscado.getText().length()==0)
             insertarEnlista(listaViajes);
-        else
-            insertarEnlista(main.admin.filtradoViajes(this.comboFiltrado.getSelectedIndex(),this.txtBuscado.getText()));
+       
 
     }//GEN-LAST:event_txtBuscadoKeyTyped
 
@@ -356,6 +338,13 @@ public final class InterfazViajes extends javax.swing.JFrame {
         });// 
     }//GEN-LAST:event_mINuevoChoferActionPerformed
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        if(this.txtBuscado.getText().length()==0)
+            insertarEnlista(listaViajes);
+        else
+            insertarEnlista(main.admin.filtradoViajes(this.comboFiltrado.getSelectedIndex(),this.txtBuscado.getText()));
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -364,9 +353,9 @@ public final class InterfazViajes extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TableViajes;
     private javax.swing.JMenuBar barraMenu;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JComboBox<String> comboFiltrado;
     private javax.swing.JMenuItem itemSalir;
-    private javax.swing.JMenuItem itemUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -379,7 +368,6 @@ public final class InterfazViajes extends javax.swing.JFrame {
     private javax.swing.JMenuItem mINuevoSolicitudViaje;
     private javax.swing.JMenuItem mINuevoVehiculo;
     private javax.swing.JMenu subMenuArchivo;
-    private javax.swing.JMenu subMenuEditar;
     private javax.swing.JTextField txtBuscado;
     // End of variables declaration//GEN-END:variables
 }

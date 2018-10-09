@@ -4,12 +4,12 @@
       <ID>VIA-1</ID>
       <Pasajeros>117370445;</Pasajeros>
       <Solicitud>08/10/2018</Solicitud>
-      <inicioDate>20/03/2019</inicioDate>
-      <finDate>20/03/2019</finDate>
-      <Vehiculo> </Vehiculo>
-      <Chofer> </Chofer>
-      <Estado>En Confeccion</Estado>
-      <Descripcion>Cumple</Descripcion>
+      <inicioDate>20/11/2019</inicioDate>
+      <finDate>20/11/2019</finDate>
+      <Vehiculo>Sin definir</Vehiculo>
+      <Chofer>1</Chofer>
+      <Estado>Cancelado</Estado>
+      <Descripcion>Viaje</Descripcion>
    </Viaje>
 </xml>
 

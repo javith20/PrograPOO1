@@ -55,7 +55,7 @@ public class InicioSecion extends javax.swing.JFrame {
             }
         });
 
-        btnInicio.setText("Inciar ");
+        btnInicio.setText("Iniciar ");
         btnInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInicioActionPerformed(evt);
@@ -89,7 +89,7 @@ public class InicioSecion extends javax.swing.JFrame {
                             .addComponent(txtClave, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE))
                         .addGap(105, 105, 105))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 7, Short.MAX_VALUE)
+                        .addGap(0, 5, Short.MAX_VALUE)
                         .addComponent(btnInicio)
                         .addGap(34, 34, 34)
                         .addComponent(btnRegistrar)
