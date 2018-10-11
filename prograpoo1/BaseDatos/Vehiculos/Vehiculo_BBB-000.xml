@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xml>
+   <Vehiculo>
+      <Placa>BBB-000</Placa>
+      <Color>Blanco</Color>
+      <Marca>Toyota</Marca>
+      <AgnoFabricacion>2018</AgnoFabricacion>
+      <Capacidad>5</Capacidad>
+      <Kilometraje>2000.0</Kilometraje>
+      <Vin>237823</Vin>
+      <Sede>Cartago</Sede>
+      <Estado>En Servicio</Estado>
+   </Vehiculo>
+</xml>
+
